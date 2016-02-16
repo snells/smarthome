@@ -1,7 +1,132 @@
-gui
-==============
 
-Template for a simple Vaadin application that only requires a Servlet 3.0 container to run.
+
+
+## package control   
+Control class and data packages   
+    
+##### Control
+
+
+Control handles login, saving and loading data
+public boolean login   
+public void logout   
+public boolean register(String name, String pass)
+public void addToConf(SmartObject o)   
+public void removeFromConf(SmartObject o)   
+public boolean addView(View view)
+public void deleteView(View view);
+
+
+##### HomeConf   
+
+
+Represents the physical houses
+Admin can add and remove smartObjects from houses and add new to them    
+
+
+##### ViewData
+
+
+Admin created View for the user    
+ViewData can have as much or less than what HomeConf has    
+
+
+
+##### LoginData   
+
+
+data for one user 
+
+
+
+
+
+## Package house  
+
+
+##### Attribute 
+
+Every house object has attributes 
+Room can have temparature, ...
+House can be on fire, ....
+
+
+##### ObjectButton
+
+Objects have n amount of buttons and each button has label
+
+
+##### abstract SmartObject   
+
+Object has to be in some room 
+public House getHouse() 
+public Room getRoom() 
+public int buttonCount() 
+public String[] getButtons() // labels
+public void pressed(String but)
+
+
+
+
+##### Room
+
+Room has objects and room has to be in some house
+
+
+##### House
+
+
+
+
+
+## Package screen
+
+Screen takes the whole window space
+
+
+
+##### Root
+
+root is always visible but some screen is always filled over it
+root has every screen 
+root has control to switch the current screen
+only one screen is visible at time
+
+
+
+##### abstract Screen
+
+every screen extends this
+
+    public abstract void show();
+    public abstract void hide();
+    public abstract void alert();
+
+
+alert opens popup window that has annoying error info and such
+
+
+##### LoginScreen
+
+password can be empty
+Opens either AdminScreen or UserScreen
+
+
+
+##### AdminScreen
+
+
+vittu
+
+
+
+##### UserScreen
+
+
+
+
+
+
 
 
 Workflow
