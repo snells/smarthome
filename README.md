@@ -7,14 +7,14 @@ Control class and data packages
 ##### Control
 
 
-Control handles login, saving and loading data
+Control handles login, saving and loading data    
 public boolean login   
 public void logout   
-public boolean register(String name, String pass)
-public void addToConf(SmartObject o)   
-public void removeFromConf(SmartObject o)   
-public boolean addView(View view)
-public void deleteView(View view);
+public boolean register(String name, String pass)    
+public void addToConf(SmartObject o)    
+public void removeFromConf(SmartObject o)    
+public boolean addView(View view)    
+public void deleteView(View view);    
 
 
 ##### HomeConf   
@@ -47,22 +47,22 @@ data for one user
 ##### Attribute 
 
 Every house object has attributes 
-Room can have temparature, ...
+Room can have temparature, ...    
 House can be on fire, ....
 
 
 ##### ObjectButton
 
-Objects have n amount of buttons and each button has label
+Objects have n amount of buttons and each button has label   
 
 
 ##### abstract SmartObject   
 
-Object has to be in some room 
-public House getHouse() 
-public Room getRoom() 
-public int buttonCount() 
-public String[] getButtons() // labels
+Object has to be in some room    
+public House getHouse()    
+public Room getRoom()    
+public int buttonCount()   
+public String[] getButtons() // labels    
 public void pressed(String but)
 
 
@@ -87,9 +87,9 @@ Screen takes the whole window space
 
 ##### Root
 
-root is always visible but some screen is always filled over it
-root has every screen 
-root has control to switch the current screen
+root is always visible but some screen is always filled over it    
+root has every screen    
+root has control to switch the current screen    
 only one screen is visible at time
 
 
