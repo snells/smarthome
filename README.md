@@ -18,11 +18,20 @@ Actual doing code is implemented elsewhere.
 
 
 
+##### UserData   
+
+
+Users name, password, right, view, aliases for current view    
+User can have only one view?    
+User can rename some objects in his view but currently there is only one hashmap for aliases,
+we probably need more or some other way for handling user specific preferences 
+
+
+
 ##### HomeConf    
 
 
 Represents the physical houses   
-Admin can add and remove objects from conf
 
 
 

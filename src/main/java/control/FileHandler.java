@@ -18,16 +18,25 @@ public class FileHandler {
 	private  File viewFile = new File(path + ".viewData");
 	
     public  ArrayList<UserData> loadLogin() {
-        return null;
+        ArrayList<UserData> data;
+        data = load(loginFile);
+        if(data == null)
+            return new ArrayList<>();
+        return data;
     }
 
     public  void saveLogin(ArrayList<UserData> data) {
-
+        write(data, loginFile);
     }
     
     public  ArrayList<ViewData> loadViews() {
-        return null;
+        ArrayList<ViewData> views;
+        views = load(viewFile);
+        if(views == null)
+            return new ArrayList<>();
+        return views;
     }
+
     public  void saveViews(ArrayList<ViewData> data) {}
 
 

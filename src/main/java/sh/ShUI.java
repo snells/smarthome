@@ -10,6 +10,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 
+import control.Control;
 import screen.Root;
 
 import com.vaadin.ui.Label;
@@ -28,6 +29,9 @@ public class ShUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         Globals g = new Globals();
         Root root = new Root(this);
+        Globals.root = root;
+        Globals.control = new Control();
+
         setContent(root);
     }
 

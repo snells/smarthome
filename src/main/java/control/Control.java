@@ -7,6 +7,8 @@ import screen.Root;
 import screen.Screen;
 import sh.Globals;
 
+import javax.jws.soap.SOAPBinding;
+import java.lang.reflect.AnnotatedArrayType;
 import java.util.ArrayList;
 
 public class Control {
@@ -38,15 +40,28 @@ public class Control {
 	}
 	public void logout() {
 		Globals.user = null;
-		Globals.root.changeScreen(Screen.TYPE.LOGIN);
+		Globals.root.changeScreen(Screen.TYPE.USER_SELECT);
 	}
 
+	private ArrayList<UserData> usersData() {
+		ArrayList<UserData> ret = new ArrayList<>();
+		for(User u : users)
+			ret.add(u.getData());
+		return ret;
+	}
 
+	public User getUser(String name) {
+		for(User u : users)
+			if(u.getName().equals(name))
+				return u;
+		return null;
+	}
 	public boolean addUser(String name, String pass, User.RIGHT right) {
 		for(User u : users)
 			if(u.getName().equals(name))
 				return false;
 		users.add(new User(name, pass, right));
+		fileHandler.saveLogin(usersData());
 		return true;
 	}
 
@@ -54,19 +69,47 @@ public class Control {
 		for(User u : users)
 			if(u.getName().equals(name)) {
 				users.remove(u);
+				fileHandler.saveLogin(usersData());
 				return true;
 			}
 		return false;
 	}
 
-//	public void addToConf(String house, String room, int obj) {}
+	public void userUpdateName(String name, String newName) {
+		User u = getUser(name);
+		if(u == null)
+			return;
+		u.setName(newName);
+		fileHandler.saveLogin(usersData());
+	}
+	public void userUpdatePassword(String name, String newPassword) {
+		User u = getUser(name);
+		if(u == null)
+			return;
+		u.setPassword(newPassword);
+		fileHandler.saveLogin(usersData());
+	}
 
-//	public void removeFromConf(String house, String room, int obj) {}
 
+	public void addView(ViewData v) {
+		views.add(v);
+		fileHandler.saveViews(views);
 
-	public void addView(ViewData v) {}
-	public void removeView(ViewData v) {}
-	public void removeView(String name) {}
+	}
+	public void removeView(ViewData v) {
+		views.remove(v);
+		fileHandler.saveViews(views);
+	}
+	public void removeView(String name) {
+		ViewData v = null;
+		for(ViewData t : views)
+			if(t.name.equals(name)) {
+				v = t;
+				break;
+			}
+		if(v != null)
+			removeView(v);
+	}
 
 
 

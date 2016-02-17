@@ -2,6 +2,8 @@ package control;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class User {
@@ -10,7 +12,8 @@ public class User {
 
 
     public User(String name, String pass, RIGHT right) {
-        data = new UserData(name, pass, right, "default");
+
+        data = new UserData(name, pass, right, "default", new HashMap<>());
     }
     public User(UserData data) {
         this.data = data;
