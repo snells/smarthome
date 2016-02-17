@@ -7,12 +7,18 @@ import java.util.ArrayList;
 import house.House;
 
 public class ViewData implements Serializable {
+    public static final long serialVersionUID = 1L;
     public String name;
-    public ArrayList<House> houses;
+    public String password;
+    public ArrayList<HouseData> houses;
     
-    public ViewData(String name, ArrayList<House> houses) {
+    public ViewData(String name, String pass, ArrayList<House> houses) {
     	this.name = name;
-    	this.houses = houses;
+        password = pass;
+        ArrayList<HouseData> data = new ArrayList<>();
+        for(House h : houses)
+            data.add(h.getData());
+    	this.houses = data;
     }
     
     // styles

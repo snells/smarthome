@@ -1,10 +1,9 @@
 package screen;
 
 /**
- * Created by s on 2/15/16.
+ * Created by s on 2/17/16.
  */
-public class AdminScreen extends Screen {
-
+public class UserSelect extends Screen {
     @Override
     public void show() {
 

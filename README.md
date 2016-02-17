@@ -3,6 +3,15 @@
 
 ## package control   
 Control class and data packages   
+Classes ending with Data don't have public methods and have only public attributes.    
+Data classes are for saving to files and actual implementation is done elsewhere
+
+
+    
+##### FileHandler    
+
+saves and loads HomeConf, users, viewData from files    
+    
     
 ##### Control
 
@@ -22,6 +31,7 @@ public void deleteView(View view);
 
 Represents the physical houses
 Admin can add and remove smartObjects from houses and add new to them    
+Adding and removing is done in Control class
 
 
 ##### ViewData
@@ -32,10 +42,13 @@ ViewData can have as much or less than what HomeConf has
 
 
 
-##### LoginData   
+##### UserData
 
 
-data for one user 
+user login info   
+
+
+##### User 
 
 
 
@@ -51,19 +64,11 @@ Room can have temparature, ...
 House can be on fire, ....
 
 
-##### ObjectButton
-
-Objects have n amount of buttons and each button has label
-
-
-##### abstract SmartObject   
+##### SmartObject   
 
 Object has to be in some room 
 public House getHouse() 
 public Room getRoom() 
-public int buttonCount() 
-public String[] getButtons() // labels
-public void pressed(String but)
 
 
 
@@ -75,7 +80,7 @@ Room has objects and room has to be in some house
 
 ##### House
 
-
+has rooms and objects    
 
 
 
@@ -106,9 +111,19 @@ every screen extends this
 alert opens popup window that has annoying error info and such
 
 
+
+##### UserSelect    
+
+
+First screen where you select the user    
+If the user is password protected go to login screen  
+
+
+
+
 ##### LoginScreen
 
-password can be empty
+
 Opens either AdminScreen or UserScreen
 
 
@@ -116,7 +131,6 @@ Opens either AdminScreen or UserScreen
 ##### AdminScreen
 
 
-vittu
 
 
 

@@ -1,5 +1,7 @@
 package sh;
 
+import control.Control;
+import control.User;
 import screen.Root;
 
 /**
@@ -8,5 +10,7 @@ import screen.Root;
 public class Globals {
     public static User user;
     public static Root root;
+    public static Control control;
+
     // muut paskat määreet
 }

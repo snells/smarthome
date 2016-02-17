@@ -1,23 +1,18 @@
 package screen;
 
 
-import control.ViewData;
-import sh.User;
+import com.vaadin.ui.AbsoluteLayout;
 
-public abstract class Screen {  // extends StackLayout
+public abstract class Screen extends AbsoluteLayout {
+    public enum TYPE { LOGIN, ADMIN, USER, USER_SELECT };
 
     //public abstract void init(User user);
 
-    public abstract void show(User user, ViewData vd);
+    public abstract void show();
 
     public abstract void hide();
 
     public abstract void alert(String stuff);
-
-    public abstract void logout();
-
-    public abstract void login(User user);
-
 }
 
 
