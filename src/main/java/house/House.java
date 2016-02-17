@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class House extends Attribute {
+public class House {
     private HouseData data;
 
     public House(HouseData data) {
