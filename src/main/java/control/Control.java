@@ -8,8 +8,10 @@ import screen.Screen;
 import sh.Globals;
 
 import javax.jws.soap.SOAPBinding;
+import javax.swing.text.View;
 import java.lang.reflect.AnnotatedArrayType;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Control {
 	private FileHandler fileHandler = new FileHandler();
@@ -17,13 +19,29 @@ public class Control {
 	private ArrayList<ViewData> views;
 	private HomeConf conf;
 	private ArrayList<House> houses;
+	private int lastId = -1;
 
 	public Control() {
 		users = new ArrayList<>();
 		for(UserData d : fileHandler.loadLogin())
 			users.add(new User(d));
 		views = fileHandler.loadViews();
+		if(views.size() == 0) {
+			views = Default.genDefaultViews();
+		}
 		conf = fileHandler.loadConf();
+
+		for(HouseData d : conf.houses)
+			for(SmartData s : d.objects)
+				if(s.id > lastId)
+					lastId = s.id;
+		lastId++;
+	}
+
+	public int getUniqueId() {
+		int tmp = lastId;
+		lastId++;
+		return tmp;
 	}
 
 	public boolean login(String name, String pass) {
@@ -111,6 +129,8 @@ public class Control {
 			removeView(v);
 	}
 
-
+	public ArrayList<ViewData> getViews() {
+		return views;
+	}
 
 }

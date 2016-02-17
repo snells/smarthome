@@ -43,6 +43,11 @@ Represents the physical houses
 
 
 
+Classes that work between Screens Data classes    
+Currently they do nothing, but if Screens need more functionality we could add it here maybe or not    
+
+
+
 ##### House    
 has rooms and objects     
 

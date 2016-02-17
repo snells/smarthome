@@ -11,4 +11,10 @@ public class HouseData implements Serializable {
     public String name;
     public ArrayList<String> rooms;
     public ArrayList<SmartData> objects;
+
+    public HouseData(String name, ArrayList<String> rooms, ArrayList<SmartData> objects) {
+        this.name = name;
+        this.rooms = rooms;
+        this.objects = objects;
+    }
 }

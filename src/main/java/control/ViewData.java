@@ -12,15 +12,14 @@ public class ViewData implements Serializable {
     public String password;
     public ArrayList<HouseData> houses;
     
-    public ViewData(String name, String pass, ArrayList<House> houses) {
+    public ViewData(String name, String pass, ArrayList<HouseData> houses) {
     	this.name = name;
         password = pass;
-        ArrayList<HouseData> data = new ArrayList<>();
-        for(House h : houses)
-            data.add(h.getData());
-    	this.houses = data;
+        this.houses = houses;
     }
-    
+
+
+
     // styles
     //
 }
