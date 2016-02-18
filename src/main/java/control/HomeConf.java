@@ -22,12 +22,8 @@ public class HomeConf implements Serializable {
 
 
 	private ArrayList<HouseData> defaultConf() {
-		ArrayList<HouseData> houses = new ArrayList<>();
-		HouseData h = new HouseData();
-		h.name = "koti";
-		h.rooms = new ArrayList<>(Arrays.asList("huone1", "huone2"));
-		houses.add(h);
-
+		ArrayList<HouseData> houses;
+		houses = Default.genDefaultHouses();
 		return houses;
 	}
 }

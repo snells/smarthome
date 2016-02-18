@@ -17,4 +17,5 @@ public class HouseData implements Serializable {
         this.rooms = rooms;
         this.objects = objects;
     }
+
 }

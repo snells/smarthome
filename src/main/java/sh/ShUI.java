@@ -28,10 +28,10 @@ public class ShUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         Globals g = new Globals();
+        Globals.control = new Control();
+        Globals.control.init();
         Root root = new Root(this);
         Globals.root = root;
-        Globals.control = new Control();
-
         setContent(root);
     }
 

@@ -22,11 +22,17 @@ public class Control {
 	private int lastId = -1;
 
 	public Control() {
+	}
+
+	public void init() {
 		users = new ArrayList<>();
-		for(UserData d : fileHandler.loadLogin())
+		ArrayList<UserData> tmpData = fileHandler.loadLogin();
+		if(tmpData.size() == 0)
+			tmpData = Default.genDefaultUsers();
+		for (UserData d : tmpData)
 			users.add(new User(d));
 		views = fileHandler.loadViews();
-		if(views.size() == 0) {
+		if (views.size() == 0) {
 			views = Default.genDefaultViews();
 		}
 		conf = fileHandler.loadConf();
@@ -61,7 +67,7 @@ public class Control {
 		Globals.root.changeScreen(Screen.TYPE.USER_SELECT);
 	}
 
-	private ArrayList<UserData> usersData() {
+	public ArrayList<UserData> usersData() {
 		ArrayList<UserData> ret = new ArrayList<>();
 		for(User u : users)
 			ret.add(u.getData());
@@ -127,6 +133,10 @@ public class Control {
 			}
 		if(v != null)
 			removeView(v);
+	}
+
+	public boolean hasPassword(String name) {
+		return (getUser(name).getPassword().length() != 0);
 	}
 
 	public ArrayList<ViewData> getViews() {

@@ -38,6 +38,9 @@ public class User {
     public void setPassword(String pass) { data.password = pass; }
 
 
+    public User.RIGHT getRight() {
+        return data.right;
+    }
     public boolean isAdmin() { return data.right == RIGHT.ADMIN ? true : false; }
 
 

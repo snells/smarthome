@@ -62,7 +62,7 @@ public class FileHandler {
             ret = (T)oi.readObject();
             oi.close();
             fi.close();
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { System.out.println("ERROR loading file" + f); }
         return ret;
     }
         
@@ -73,7 +73,7 @@ public class FileHandler {
             os.writeObject(data);
             os.close();
             fo.close();
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { System.out.println("ERROR saving file" + f); }
         }
 }
 

@@ -3,6 +3,8 @@ package screen;
 import java.util.ArrayList;
 
 import com.vaadin.ui.AbsoluteLayout;
+import control.User;
+import control.UserData;
 import sh.ShUI;
 import sun.rmi.runtime.Log;
 
@@ -14,7 +16,6 @@ public class Root extends AbsoluteLayout {
 	private Screen currentScreen;
 	private UserScreen userScreen;
 	private AdminScreen adminScreen;
-	private LoginScreen loginScreen;
 	private UserSelect userSelect;
 	private ShUI ui;
 
@@ -25,26 +26,25 @@ public class Root extends AbsoluteLayout {
 
 		userScreen = new UserScreen();
 		adminScreen = new AdminScreen();
-		loginScreen = new LoginScreen();
 		userSelect = new UserSelect();
 
 		userScreen.setSizeFull();
 		adminScreen.setSizeFull();
-		loginScreen.setSizeFull();
-		userSelect.setSizeFull();
+			userSelect.setSizeFull();
 
 		userScreen.addStyleName("screen");
 		adminScreen.addStyleName("screen");
-		loginScreen.addStyleName("screen");
-		userSelect.addStyleName("screen");
+			userSelect.addStyleName("screen");
 
 
 		userScreen.setVisible(false);
 		adminScreen.setVisible(false);
-		loginScreen.setVisible(false);
 		userSelect.setVisible(true);
 
-		this.addComponents(loginScreen, userScreen, adminScreen, userSelect);
+		this.addComponents(userScreen, adminScreen, userSelect);
+
+		currentScreen = userSelect;
+		userSelect.show();
 	}
 	
 
@@ -55,7 +55,7 @@ public class Root extends AbsoluteLayout {
 
 	private Screen getScreen(Screen.TYPE sc) {
 		switch (sc) {
-			case LOGIN: return loginScreen;
+			case USER_SELECT: return userSelect;
 			case ADMIN: return adminScreen;
 			case USER: return userScreen;
 			default: throw new RuntimeException("ERROR trying to get screen that does not exists");
@@ -67,6 +67,12 @@ public class Root extends AbsoluteLayout {
 		currentScreen = getScreen(sc);
 		currentScreen.show();
     }
+
+	public void changeScreen(User user) {
+		currentScreen.hide();
+		currentScreen = getScreen((user.getRight() == User.RIGHT.ADMIN) ? Screen.TYPE.ADMIN : Screen.TYPE.USER);
+		currentScreen.show();
+	}
 
 
 }

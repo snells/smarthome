@@ -3,7 +3,7 @@ package screen;
 
 import com.vaadin.ui.AbsoluteLayout;
 
-public abstract class Screen extends AbsoluteLayout {
+public interface Screen {
     public enum TYPE { LOGIN, ADMIN, USER, USER_SELECT };
 
     //public abstract void init(User user);
