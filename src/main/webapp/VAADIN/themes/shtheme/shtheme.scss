@@ -63,6 +63,17 @@ margin-top: 40px;
 margin-bottom: 40px;
 }
 
+.margin-rl30 {
+margin-left: 30px;
+margin-right: 30px;
+}
+
+.margin-r80 {
+margin-right: 80px;
+}
+.margin-bot30 {
+margin-bottom: 30px;
+}
 .border-black-solid {
 
 border: 2px solid black;
@@ -119,8 +130,25 @@ border: 2px solid black;
 
 }
 
+.border-bot {
+border-bottom: 2px solid black;
+}
+
 .bg-blue {
 background: blue;
+}
+
+.border-none {
+border-style: none;
+
+}
+
+.bg-black {
+background: black;
+}
+
+.bg-red {
+background: red;
 }
 
 

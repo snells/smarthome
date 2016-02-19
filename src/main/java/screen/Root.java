@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.vaadin.ui.AbsoluteLayout;
 import control.User;
 import control.UserData;
+import sh.Globals;
 import sh.ShUI;
 import sun.rmi.runtime.Log;
 
@@ -45,6 +46,7 @@ public class Root extends AbsoluteLayout {
 
 		currentScreen = userSelect;
 		userSelect.show();
+
 	}
 	
 

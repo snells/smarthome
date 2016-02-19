@@ -1,0 +1,255 @@
+package screen;
+
+import com.vaadin.server.GlobalResourceHandler;
+import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
+import control.User;
+import control.UserData;
+import javafx.scene.control.*;
+import jdk.nashorn.internal.objects.Global;
+import sh.Globals;
+
+import java.util.ArrayList;
+
+
+public class AdminUserView extends HorizontalLayout {
+
+    ArrayList<UserData> users;
+    private UserData currentUser = null;
+    private ListSelect userList = new ListSelect();
+    private VerticalLayout ctrlView = new VerticalLayout();
+    private Label info = new Label();
+
+    private volatile boolean delFlag = false;
+    private volatile boolean alertFlag = false;
+
+    public AdminUserView() {
+        info.addStyleName("margin-bot30");
+        userList.setWidth("100%");
+        userList.setHeight("100%");
+        ctrlView.setWidth("100%");
+        ctrlView.setHeight("100%");
+        userList.addValueChangeListener(e -> {
+            String t = (String)e.getProperty().getValue();
+            if(t == null)
+                return;
+            if(t.equals("Add new")) {
+                ctrlAddNew();
+                return;
+            }
+
+            UserData d = getUser(t);
+            if(d == null)
+                return;
+            updateCtrl(d);
+        });
+        users = Globals.control.usersData();
+
+        addComponents(userList, ctrlView);
+        setExpandRatio(userList, 0.2f);
+        setExpandRatio(ctrlView, 0.8f);
+    }
+
+
+    private UserData getUser(String name) {
+        for(UserData d : users)
+            if(d.name.equals(name))
+                return d;
+        return null;
+    }
+
+
+    private boolean isDelFlag() {
+        return delFlag;
+    }
+
+    private HorizontalLayout makeBox(String field, String name) {
+        HorizontalLayout hl = new HorizontalLayout();
+        Label l  = new Label(field);
+        l.addStyleName("margin-rl30");
+        hl.addComponent(l);
+        TextField tf = new TextField();
+        tf.addStyleName("margin-rl30");
+        hl.addComponent(tf);
+        Button b = new Button(name);
+        b.addStyleName("margin-rl30");
+        b.addClickListener(e -> {
+            handle(field, tf.getValue());
+            tf.setValue("");
+        });
+        hl.addComponent(b);
+        hl.setComponentAlignment(l, Alignment.MIDDLE_LEFT);
+        hl.setComponentAlignment(tf, Alignment.MIDDLE_CENTER);
+        hl.setComponentAlignment(b, Alignment.MIDDLE_RIGHT);
+        return hl;
+    }
+
+    private void handle(String cmd, String text) {
+        if(text.length() == 0) {
+            info.addStyleName("error-font");
+            info.setValue("Field can't be empty you fucking retard");
+            return;
+        }
+        String t = currentUser.name;
+        if(cmd.equals("username")) {
+            Globals.control.userUpdateName(t, text);
+            currentUser.name = text;
+            System.out.println("username " + t  + " new name " + text);
+            info.removeStyleName("error-font");
+            info.addStyleName("success-font");
+            info.setValue("Update successful");
+            updateList();
+        }
+        else if(cmd.equals("password")) {
+            currentUser.password = text;
+            Globals.control.userUpdatePassword(t, text);
+            info.removeStyleName("error-font");
+            info.addStyleName("success-font");
+            info.setValue("Update successful");
+        }
+    }
+    private void updateCtrl(UserData d) {
+        info.setValue("");
+        info.removeStyleName("error-font");
+        info.removeStyleName("success-font");
+        if(null == d) {
+            ctrlView.removeAllComponents();
+            return;
+        }
+        if(currentUser != null && d.name.equals(currentUser.name))
+            return;
+        currentUser = d;
+        ctrlView.removeAllComponents();
+        HorizontalLayout un = makeBox("username", "update");
+        un.addStyleName("margin-bot30");
+        HorizontalLayout pn =  makeBox("password", "update");
+
+        Button del = new Button("Delete");
+        del.addClickListener(e -> alertDel(d.name));
+        del.addStyleName("margin-top40");
+        del.addStyleName("margin-rl30");
+        VerticalLayout logBox = new VerticalLayout();
+        logBox.addComponents(un, pn);
+        if(d.right != User.RIGHT.ADMIN)
+            logBox.addComponent(del);
+        ctrlView.addComponents(info, logBox);
+        ctrlView.setExpandRatio(info, 0.2f);
+        ctrlView.setExpandRatio(logBox, 0.8f);
+    }
+
+    private void ctrlAddNew() {
+        ctrlView.removeAllComponents();
+
+        VerticalLayout logBox = new VerticalLayout();
+
+        HorizontalLayout hl = new HorizontalLayout();
+        Label l = new Label("Username");
+        l.addStyleName("margin-rl30");
+        hl.addComponent(l);
+        TextField tf = new TextField();
+        tf.addStyleName("margin-rl30");
+        hl.addComponent(tf);
+        hl.setComponentAlignment(l, Alignment.MIDDLE_LEFT);
+        hl.setComponentAlignment(tf, Alignment.MIDDLE_CENTER);
+
+        HorizontalLayout hl2 = new HorizontalLayout();
+        Label lp = new Label("Username");
+        lp.addStyleName("margin-rl30");
+        hl2.addComponent(lp);
+        TextField tf2 = new TextField();
+        tf2.addStyleName("margin-rl30");
+        hl2.addComponent(tf2);
+        hl2.setComponentAlignment(lp, Alignment.MIDDLE_LEFT);
+        hl2.setComponentAlignment(tf2, Alignment.MIDDLE_CENTER);
+
+
+
+        Button b = new Button("Add");
+        b.addClickListener(e -> {
+            if(Globals.control.getUser(tf.getValue()) != null) {
+                info.removeStyleName("success-font");
+                info.addStyleName("error-font");
+                info.setValue("Name can't be empty and it must be unique");
+            }
+            else {
+                Globals.control.addUser(tf.getValue(), tf2.getValue(), User.RIGHT.USER);
+                users = Globals.control.usersData();
+                updateList();
+                info.removeStyleName("error-font");
+                info.addStyleName("success-font");
+                info.setValue("Add success");
+            }
+            tf.setValue("");
+            tf2.setValue("");
+        });
+        logBox.addComponents(hl, hl2, b);
+        ctrlView.addComponents(info, logBox);
+        ctrlView.setExpandRatio(info, 0.2f);
+        ctrlView.setExpandRatio(logBox, 0.8f);
+    }
+
+
+    private void alertDel(String name) {
+        alertFlag = true;
+        Window w = new Window();
+        HorizontalLayout hl = new HorizontalLayout();
+        //hl.addStyleName("popup-box");
+        Label l = new Label("Kill " + name + "?");
+        l.addStyleName("margin-rl30");
+        hl.addComponent(l);
+        Button b = new Button("Yes");
+        b.addStyleName("margin-rl30");
+        Button b2 = new Button("YES");
+        b2.addStyleName("margin-rl30");
+        b2.addStyleName("margin-r80");
+
+        b.addClickListener(e -> {
+            Globals.control.removeUser(name);
+            users = Globals.control.usersData();
+            updateList();
+            ctrlView.removeAllComponents();
+            alertFlag = false;
+            w.close();
+        });
+        b2.addClickListener(e -> {
+            alertFlag = false;
+            w.close();
+        });
+
+        hl.addComponents(b, b2);
+
+        w.setSizeUndefined();
+        w.center();
+        w.setContent(hl);
+        Globals.ui.addWindow(w);
+    }
+
+
+    private void updateList() {
+        userList.removeAllItems();
+        ArrayList<String> names = new ArrayList<>();
+        names.add("Add new");
+        for(UserData d : users)
+            if(d.name.length() > 0)
+                names.add(d.name);
+        userList.addItems(names);
+    }
+
+
+    public void show() {
+        delFlag = false;
+        alertFlag = false;
+        users = Globals.control.usersData();
+        userList.removeAllItems();
+        ArrayList<String> names = new ArrayList<>();
+        names.add("Add new");
+        for(UserData d : users)
+            if(d.name.length() > 0)
+                names.add(d.name);
+        userList.addItems(names);
+        ctrlView.removeAllComponents();
+    }
+}

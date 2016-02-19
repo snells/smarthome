@@ -11,6 +11,7 @@ public class Globals {
     public static User user = null;
     public static Root root;
     public static Control control;
+    public static ShUI ui;
 
     // muut paskat määreet
 }

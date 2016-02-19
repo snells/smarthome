@@ -99,12 +99,13 @@ public class Control {
 		return false;
 	}
 
-	public void userUpdateName(String name, String newName) {
+	public boolean userUpdateName(String name, String newName) {
 		User u = getUser(name);
 		if(u == null)
-			return;
+			return false;
 		u.setName(newName);
 		fileHandler.saveLogin(usersData());
+		return true;
 	}
 	public void userUpdatePassword(String name, String newPassword) {
 		User u = getUser(name);

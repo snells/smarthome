@@ -35,15 +35,12 @@ public class UserSelect extends AbsoluteLayout implements Screen {
         loginBut.addStyleName("margin15");
         loginBut.addClickListener(e -> {
             if(loginField.getValue().equals(selected.getPassword())) {
-                loginInfo.removeStyleName("error-font");
-                loginInfo.addStyleName("success-font");
-                loginInfo.setValue("success");
-                loginInfo.setVisible(true);
+                hidePass();
+                Globals.user = selected;
+                Globals.root.changeScreen(Globals.user);
             }
             else {
                 loginInfo.setVisible(true);
-                loginInfo.removeStyleName("success-font");
-                loginInfo.addStyleName("error-font");
                 loginInfo.setValue("Wrong password");
                 loginField.setValue("");
             }
@@ -74,6 +71,7 @@ public class UserSelect extends AbsoluteLayout implements Screen {
     }
     @Override
     public void show() {
+        this.setVisible(true);
         users = Globals.control.usersData();
         vbox.removeAllComponents();
         for(UserData d : users) {
@@ -116,6 +114,7 @@ public class UserSelect extends AbsoluteLayout implements Screen {
                 hidePass();
                 return;
             }
+            loginField.setValue("");
             String t = e.getButton().getCaption();
             if(Globals.control.hasPassword(t)) {
                 selected = Globals.control.getUser(t);

@@ -14,8 +14,8 @@ public class FileHandler {
 	
 	private  File path = new File(System.getProperty("user.home"));
 	private  File confFile = new File(path + "/.smarthome-conf");
-	private  File loginFile = new File(path + ".loginData");
-	private  File viewFile = new File(path + ".viewData");
+	private  File loginFile = new File(path + "/.loginData");
+	private  File viewFile = new File(path + "/.viewData");
 	
     public  ArrayList<UserData> loadLogin() {
         ArrayList<UserData> data;
