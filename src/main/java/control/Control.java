@@ -115,6 +115,13 @@ public class Control {
 		fileHandler.saveLogin(usersData());
 	}
 
+	public void userUpdateView(String name, String v) {
+		User u = getUser(name);
+		if(u == null)
+			return;
+		u.setView(v);
+		fileHandler.saveLogin(usersData());
+	}
 
 	public void addView(ViewData v) {
 		views.add(v);
@@ -142,6 +149,16 @@ public class Control {
 
 	public ArrayList<ViewData> getViews() {
 		return views;
+	}
+	public ArrayList<ViewData> getUserViews() {
+		return views;
+	}
+
+	public ArrayList<String> getViewsNames() {
+		ArrayList<String> names = new ArrayList<>();
+		for(ViewData v : views)
+			names.add(v.name);
+		return names;
 	}
 
 }

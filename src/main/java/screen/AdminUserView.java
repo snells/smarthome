@@ -8,10 +8,12 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import control.User;
 import control.UserData;
+import control.ViewData;
 import javafx.scene.control.*;
 import jdk.nashorn.internal.objects.Global;
 import sh.Globals;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 
 
@@ -23,8 +25,6 @@ public class AdminUserView extends HorizontalLayout {
     private VerticalLayout ctrlView = new VerticalLayout();
     private Label info = new Label();
 
-    private volatile boolean delFlag = false;
-    private volatile boolean alertFlag = false;
 
     public AdminUserView() {
         info.addStyleName("margin-bot30");
@@ -61,10 +61,6 @@ public class AdminUserView extends HorizontalLayout {
         return null;
     }
 
-
-    private boolean isDelFlag() {
-        return delFlag;
-    }
 
     private HorizontalLayout makeBox(String field, String name) {
         HorizontalLayout hl = new HorizontalLayout();
@@ -135,9 +131,52 @@ public class AdminUserView extends HorizontalLayout {
         logBox.addComponents(un, pn);
         if(d.right != User.RIGHT.ADMIN)
             logBox.addComponent(del);
+
+        NativeSelect ns = new NativeSelect();
+        ArrayList<ViewData> views = Globals.control.getUserViews();
+        //ArrayList<String> names = new ArrayList<>();
+        int n = 0;
+        int current = 0;
+        for(ViewData v : views) {
+            if(v.name.equals("admin"))
+                continue;
+            ns.addItem(n);
+            if(v.name.equals(currentUser.view))
+                current = n;
+            ns.setItemCaption(n++, v.name);
+        }
+        HorizontalLayout viewBox = new HorizontalLayout();
+        Label vl = new Label("Select view");
+        vl.addStyleName("margin-rl30");
+        viewBox.addComponent(vl);
+        //ns.addItems(names);
+        ns.select(current);
+        ns.addValueChangeListener(e -> {
+            String v = ns.getItemCaption(e.getProperty().getValue());
+            if(v == null) {
+                v = ns.getItemCaption(0);
+                ns.select(0);
+            }
+            System.out.println("Selected " + v);
+            currentUser.view = v;
+            Globals.control.userUpdateView(currentUser.name, v);
+            users = Globals.control.usersData();
+        });
+        viewBox.addComponent(ns);
         ctrlView.addComponents(info, logBox);
-        ctrlView.setExpandRatio(info, 0.2f);
-        ctrlView.setExpandRatio(logBox, 0.8f);
+        if(!(currentUser.right == User.RIGHT.ADMIN)) {
+            ctrlView.addComponent(viewBox);
+            ctrlView.setComponentAlignment(viewBox, Alignment.MIDDLE_LEFT);
+            ctrlView.setExpandRatio(info, 0.2f);
+            ctrlView.setExpandRatio(logBox, 0.3f);
+            ctrlView.setExpandRatio(viewBox, 0.5f);
+        }
+        else {
+            ctrlView.setExpandRatio(info, 0.2f);
+            ctrlView.setExpandRatio(logBox, 0.8f);
+
+        }
+
     }
 
     private void ctrlAddNew() {
@@ -193,7 +232,6 @@ public class AdminUserView extends HorizontalLayout {
 
 
     private void alertDel(String name) {
-        alertFlag = true;
         Window w = new Window();
         HorizontalLayout hl = new HorizontalLayout();
         //hl.addStyleName("popup-box");
@@ -211,11 +249,9 @@ public class AdminUserView extends HorizontalLayout {
             users = Globals.control.usersData();
             updateList();
             ctrlView.removeAllComponents();
-            alertFlag = false;
             w.close();
         });
         b2.addClickListener(e -> {
-            alertFlag = false;
             w.close();
         });
 
@@ -240,8 +276,6 @@ public class AdminUserView extends HorizontalLayout {
 
 
     public void show() {
-        delFlag = false;
-        alertFlag = false;
         users = Globals.control.usersData();
         userList.removeAllItems();
         ArrayList<String> names = new ArrayList<>();

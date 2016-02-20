@@ -29,17 +29,25 @@ public class AdminScreen extends AbsoluteLayout implements Screen {
         viewBut.addStyleName("border-node");
         viewBut.setHeight("100%");
         viewBut.addClickListener(e -> switchView(1));
-        logoutBut.addStyleName("margin-rl30");
+        //logoutBut.addStyleName("margin-rl30");
         logoutBut.addStyleName("border-node");
         logoutBut.setHeight("100%");
         logoutBut.addClickListener(e -> {
             Globals.user = null;
             Globals.root.changeScreen(TYPE.USER_SELECT);
         });
+        HorizontalLayout navh = new HorizontalLayout();
+        navh.setSizeUndefined();
+        navh.setHeight("100%");
+        navh.addComponents(userBut, viewBut);
         navbar.setWidth("100%");
-        navbar.addComponents(userBut, viewBut, logoutBut);
-        navbar.setComponentAlignment(userBut, Alignment.MIDDLE_RIGHT);
-        navbar.setComponentAlignment(viewBut, Alignment.MIDDLE_LEFT);
+
+        navbar.addComponents(navh, logoutBut);
+        //navbar.setComponentAlignment(userBut, Alignment.MIDDLE_RIGHT);
+        //navbar.setComponentAlignment(viewBut, Alignment.MIDDLE_LEFT);
+        //navbar.setExpandRatio(navh, 0.8f);
+        //navbar.setExpandRatio(logoutBut, 0.2f);
+        navbar.setComponentAlignment(navh, Alignment.MIDDLE_LEFT);
         navbar.setComponentAlignment(logoutBut, Alignment.MIDDLE_RIGHT);
         navbar.setHeight("10%");
 
