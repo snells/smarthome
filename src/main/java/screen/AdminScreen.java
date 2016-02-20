@@ -1,6 +1,5 @@
 package screen;
 
-import com.sun.javafx.geom.AreaOp;
 import com.vaadin.ui.*;
 import sh.Globals;
 
@@ -12,10 +11,10 @@ public class AdminScreen extends AbsoluteLayout implements Screen {
     private HorizontalLayout navbar = new HorizontalLayout();
     private AbsoluteLayout mainView = new AbsoluteLayout();
     private Button userBut = new Button("Users");
-    private Button viewBut = new Button("Views");
+    private Button viewBut = new Button("Houses");
     private Button logoutBut = new Button("Logout");
     private AdminUserView usersView = new AdminUserView();
-    private AdminViewsView viewsView = new AdminViewsView();
+    private AdminHouseView viewsView = new AdminHouseView();
 
     public AdminScreen() {
         //navbar.addStyleName("bg-black");
@@ -55,6 +54,7 @@ public class AdminScreen extends AbsoluteLayout implements Screen {
         mainView.addComponent(usersView);
         mainView.addComponent(viewsView);
         usersView.setSizeFull();
+        usersView.setVisible(false);
         viewsView.setSizeFull();
 
 
@@ -72,6 +72,7 @@ public class AdminScreen extends AbsoluteLayout implements Screen {
         else {
             usersView.setVisible(false);
             viewsView.setVisible(true);
+            viewsView.show();
         }
     }
     @Override

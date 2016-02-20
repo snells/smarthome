@@ -143,6 +143,21 @@ public class Control {
 			removeView(v);
 	}
 
+	public ViewData getView(String house, String name) {
+		String h = null;
+		for(HouseData d : conf.houses)
+			if(d.name.equals(house)) {
+				h = d.name;
+				break;
+			}
+		if(h == null)
+			return null;
+		for(ViewData v : views)
+			if(v.house.equals(h) && v.name.equals(name))
+				return v;
+		return null;
+	}
+
 	public boolean hasPassword(String name) {
 		return (getUser(name).getPassword().length() != 0);
 	}
@@ -159,6 +174,10 @@ public class Control {
 		for(ViewData v : views)
 			names.add(v.name);
 		return names;
+	}
+
+	public ArrayList<HouseData> getHouses() {
+		return conf.houses;
 	}
 
 }

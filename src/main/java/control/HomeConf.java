@@ -12,18 +12,11 @@ public class HomeConf implements Serializable {
 	public ArrayList<HouseData> houses;
 
 	public HomeConf() {
-		houses = defaultConf();
+		houses = Default.genDefaultConf();
 	}
 
 	public HomeConf(ArrayList<HouseData> data) {
 		houses = data;
 	}
 
-
-
-	private ArrayList<HouseData> defaultConf() {
-		ArrayList<HouseData> houses;
-		houses = Default.genDefaultHouses();
-		return houses;
-	}
 }

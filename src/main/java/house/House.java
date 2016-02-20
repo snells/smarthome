@@ -1,6 +1,7 @@
 package house;
 
 import control.HouseData;
+import control.SmartData;
 import house.Room;
 
 import java.io.Serializable;
@@ -21,9 +22,9 @@ public class House {
     
     
     public ArrayList<SmartObject> getObjects() {
-    	return null;
+        ArrayList<SmartObject> objects = new ArrayList<>();
+        for(SmartData d : data.objects)
+            objects.add(new SmartObject(d));
+        return objects;
     }
-    
-
-
 }

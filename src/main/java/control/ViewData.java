@@ -9,13 +9,13 @@ import house.House;
 public class ViewData implements Serializable {
     public static final long serialVersionUID = 1L;
     public String name;
-    public String password;
-    public ArrayList<HouseData> houses;
+    public ArrayList<SmartData> objects;
+    public String house;
     
-    public ViewData(String name, String pass, ArrayList<HouseData> houses) {
+    public ViewData(String name, String house, ArrayList<SmartData> objects) {
     	this.name = name;
-        password = pass;
-        this.houses = houses;
+        this.house = house;
+        this.objects = objects;
     }
 
 

@@ -1,5 +1,6 @@
 package control;
 
+import house.House;
 import sh.Globals;
 
 import javax.jws.soap.SOAPBinding;
@@ -14,8 +15,8 @@ public class Default {
 
     public static ArrayList<ViewData> genDefaultViews() {
         ArrayList<ViewData> ret = new ArrayList<>();
-        ret.add(new ViewData("admin", "1234", genDefaultHouses()));
-        ret.add(new ViewData("default", "", genDefaultHouses()));
+        ret.add(new ViewData("admin", "koti", genDefaultObjects()));
+        ret.add(new ViewData("default", "koti", genDefaultObjects()));
         return ret;
     }
 
@@ -37,12 +38,18 @@ public class Default {
         return ret;
     }
 
-    public static ArrayList<HouseData> genDefaultHouses() {
-        ArrayList<HouseData> ret = new ArrayList<>();
-        ret.add(new HouseData("koti",
+    public static House genDefaultHouse() {
+        House h;
+        h = new House(new HouseData("koti",
                 new ArrayList<String>(Arrays.asList("huone1", "huone2")),
                 genDefaultObjects()));
-        return ret;
+        return h;
     }
 
+
+	public static ArrayList<HouseData> genDefaultConf() {
+        ArrayList<HouseData> houses = new ArrayList<>();
+        houses.add(Default.genDefaultHouse().getData());
+        return houses;
+	}
 }
