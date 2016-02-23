@@ -39,13 +39,18 @@ public class Root extends AbsoluteLayout {
 
 
 		userScreen.setVisible(false);
-		adminScreen.setVisible(false);
-		userSelect.setVisible(true);
+		//adminScreen.setVisible(false);
+		//userSelect.setVisible(true);
+		userSelect.setVisible(false);
 
 		this.addComponents(userScreen, adminScreen, userSelect);
-
+		/*
 		currentScreen = userSelect;
 		userSelect.show();
+		*/
+		currentScreen = adminScreen;
+		Globals.user = Globals.control.getUser("admin");
+		adminScreen.show();
 
 	}
 	

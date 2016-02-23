@@ -34,12 +34,19 @@
 @mixin shtheme {
   @include valo;
 
+
+.v-ui > .v-widget {
+   overflow: visible;
+}
  .root {
  }
  
  .screen {
  }
 
+.center {
+margin: 0 auto;
+}
 
 .login-field {
 }
@@ -52,6 +59,23 @@ border: 1px solid #aaaaaa;
 box-shadow: 10px 10px 5px #888888;
 }
 
+.list-but {
+margin-top: 0px;
+width: 150px;
+height: 20px;
+text-align: center;
+padding: 0px 0px 0px 0px;
+margin-bottom: 0px;
+}
+
+.list-but .v-icon {
+//float: left;
+margin-left: 100px;
+margin-top: -10px;
+height: 15px;
+}
+
+
 .margin15 {
 margin: 15px;
 }
@@ -60,6 +84,25 @@ margin: 15px;
 margin: 30px;
 }
 
+
+.margin-left0 {
+margin-left: 0px;
+}
+.margin-left15 {
+margin-left: 15px;
+}
+.margin-left30 {
+margin-left: 30px;
+}
+.margin-left45 {
+margin-left: 45px;
+}
+.margin-left60 {
+margin-left: 60px;
+}
+.margin-left75 {
+margin-left: 75px;
+}
 .margin-top30 {
 margin-top: 30;
 }

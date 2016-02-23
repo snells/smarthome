@@ -205,16 +205,19 @@ public class AdminUserView extends HorizontalLayout {
         hl2.setComponentAlignment(tf2, Alignment.MIDDLE_CENTER);
 
 
+        NativeSelect ns = new NativeSelect();
 
         Button b = new Button("Add");
         b.addClickListener(e -> {
-            if(Globals.control.getUser(tf.getValue()) != null) {
+            if (Globals.control.getUser(tf.getValue()) != null) {
                 info.removeStyleName("success-font");
                 info.addStyleName("error-font");
                 info.setValue("Name can't be empty and it must be unique");
-            }
-            else {
-                Globals.control.addUser(tf.getValue(), tf2.getValue(), User.RIGHT.USER);
+            } else {
+                Globals.control.addUser(tf.getValue(), tf2.getValue(),
+                        tf2.getValue().length() == 0 ? User.RIGHT.USER : User.RIGHT.PASSWORD,
+                        ns.getCaption());
+                System.out.println("caption " + ns.getCaption());
                 users = Globals.control.usersData();
                 updateList();
                 info.removeStyleName("error-font");
@@ -225,11 +228,40 @@ public class AdminUserView extends HorizontalLayout {
             tf2.setValue("");
         });
         logBox.addComponents(hl, hl2, b);
-        ctrlView.addComponents(info, logBox);
-        ctrlView.setExpandRatio(info, 0.2f);
-        ctrlView.setExpandRatio(logBox, 0.8f);
-    }
 
+
+        ArrayList<ViewData> views = Globals.control.getUserViews();
+        int n = 0;
+        int current = 0;
+        for (ViewData v : views) {
+            if (v.name.equals("admin"))
+                continue;
+            ns.addItem(n);
+            if (v.name.equals("default"))
+                current = n;
+            ns.setItemCaption(n++, v.name);
+        }
+        HorizontalLayout viewBox = new HorizontalLayout();
+        Label vl = new Label("Select view");
+        vl.addStyleName("margin-rl30");
+        viewBox.addComponents(vl, ns);
+        //ns.addItems(names);
+        ns.select(current);
+        ns.addValueChangeListener(e -> {
+            String v = ns.getItemCaption(e.getProperty().getValue());
+            if (v == null) {
+                v = ns.getItemCaption(0);
+                ns.select(0);
+            }
+        });
+
+            ctrlView.addComponents(info, logBox, viewBox);
+            ctrlView.setExpandRatio(info, 0.2f);
+            ctrlView.setExpandRatio(logBox, 0.3f);
+            ctrlView.setExpandRatio(viewBox, 0.5f);
+            viewBox.setDefaultComponentAlignment(Alignment.TOP_LEFT);
+
+    }
 
     private void alertDel(String name) {
         Window w = new Window();

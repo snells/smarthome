@@ -56,8 +56,14 @@ public class UserSelect extends AbsoluteLayout implements Screen {
         userIcon = new ThemeResource("icons/user.png");
         users = Globals.control.usersData();
         vbox = new VerticalLayout();
-        vbox.addStyleName("border-l-r");
-        this.addComponent(vbox, "left: 25%; right: 25%; top: 15px");
+        //vbox.setSizeUndefined();
+        vbox.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        Panel p = new Panel();
+        p.setSizeFull();
+
+        p.setContent(vbox);
+        //vbox.addStyleName("border-l-r");
+        this.addComponent(p, "left: 25%; right: 25%; top: 15px");
         this.addComponent(loginBox, "left: 25%; right: 25%; top: 40%");
 
 

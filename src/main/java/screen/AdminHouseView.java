@@ -23,6 +23,8 @@ public class AdminHouseView extends AbsoluteLayout {
         houseBox.setSizeFull();
         houseBox.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         this.addComponent(houseBox, "left: 25%; right: 25%; top: 15px");
+        this.addComponent(userView, "left: 0%; right: 75%; top: 0px");
+        userView.setVisible(false);
     }
 
 

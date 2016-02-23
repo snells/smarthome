@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 public class User {
-    public enum RIGHT { ADMIN, USER }
+    public enum RIGHT { ADMIN, USER, PASSWORD }
     private UserData data;
 
 
@@ -20,6 +20,10 @@ public class User {
     }
 
 
+    public User(String name, String pass, RIGHT right, String view) {
+
+        data = new UserData(name, pass, right, view , new HashMap<>());
+    }
 
 
 

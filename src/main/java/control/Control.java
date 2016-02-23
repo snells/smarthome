@@ -1,28 +1,23 @@
 package control;
 
-import elemental.html.File;
 import house.House;
-import house.SmartObject;
-import screen.Root;
 import screen.Screen;
 import sh.Globals;
 
-import javax.jws.soap.SOAPBinding;
-import javax.swing.text.View;
-import java.lang.reflect.AnnotatedArrayType;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Control {
 	private FileHandler fileHandler = new FileHandler();
 	private ArrayList<User> users;
-	private ArrayList<ViewData> views;
+	private ArrayList<ViewData> viewsData;
+	private ArrayList<View> views;
 	private HomeConf conf;
 	private ArrayList<House> houses;
 	private int lastId = -1;
 
 	public Control() {
 	}
+
 
 	public void init() {
 		users = new ArrayList<>();
@@ -31,10 +26,14 @@ public class Control {
 			tmpData = Default.genDefaultUsers();
 		for (UserData d : tmpData)
 			users.add(new User(d));
-		views = fileHandler.loadViews();
-		if (views.size() == 0) {
-			views = Default.genDefaultViews();
+		viewsData = fileHandler.loadViews();
+		if (viewsData.size() == 0) {
+			viewsData = Default.genDefaultViews();
 		}
+		views = new ArrayList<>();
+		for(ViewData d : viewsData)
+			views.add(new View(d));
+
 		conf = fileHandler.loadConf();
 
 		for(HouseData d : conf.houses)
@@ -89,6 +88,16 @@ public class Control {
 		return true;
 	}
 
+	public boolean addUser(String name, String pass, User.RIGHT right, String view) {
+		for(User u : users)
+			if(u.getName().equals(name))
+				return false;
+		users.add(new User(name, pass, right, view));
+		fileHandler.saveLogin(usersData());
+		return true;
+	}
+
+
 	public boolean removeUser(String name) {
 		for(User u : users)
 			if(u.getName().equals(name)) {
@@ -124,17 +133,18 @@ public class Control {
 	}
 
 	public void addView(ViewData v) {
-		views.add(v);
-		fileHandler.saveViews(views);
+		viewsData.add(v);
+
+		fileHandler.saveViews(viewsData);
 
 	}
 	public void removeView(ViewData v) {
-		views.remove(v);
-		fileHandler.saveViews(views);
+		viewsData.remove(v);
+		fileHandler.saveViews(viewsData);
 	}
 	public void removeView(String name) {
 		ViewData v = null;
-		for(ViewData t : views)
+		for(ViewData t : viewsData)
 			if(t.name.equals(name)) {
 				v = t;
 				break;
@@ -152,7 +162,7 @@ public class Control {
 			}
 		if(h == null)
 			return null;
-		for(ViewData v : views)
+		for(ViewData v : viewsData)
 			if(v.house.equals(h) && v.name.equals(name))
 				return v;
 		return null;
@@ -163,17 +173,25 @@ public class Control {
 	}
 
 	public ArrayList<ViewData> getViews() {
-		return views;
+		return viewsData;
 	}
 	public ArrayList<ViewData> getUserViews() {
-		return views;
+		return viewsData;
 	}
 
 	public ArrayList<String> getViewsNames() {
 		ArrayList<String> names = new ArrayList<>();
-		for(ViewData v : views)
+		for(ViewData v : viewsData)
 			names.add(v.name);
 		return names;
+	}
+
+	public static String[] rooms(ArrayList<SmartData> sd) {
+		String[] s = new String[sd.size()];
+		int n = 0;
+		for(SmartData d : sd)
+			s[n++] = d.name;
+		return s;
 	}
 
 	public ArrayList<HouseData> getHouses() {
