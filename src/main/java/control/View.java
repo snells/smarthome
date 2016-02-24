@@ -53,4 +53,8 @@ public class View {
             data.objects.remove(d);
     }
 
+    public String getName() {
+        return data.name;
+    }
+
 }

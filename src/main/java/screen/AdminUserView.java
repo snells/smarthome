@@ -186,16 +186,18 @@ public class AdminUserView extends HorizontalLayout {
 
         HorizontalLayout hl = new HorizontalLayout();
         Label l = new Label("Username");
+        l.addStyleName("margin-bot30");
         l.addStyleName("margin-rl30");
         hl.addComponent(l);
         TextField tf = new TextField();
+        tf.addStyleName("margin-bot30");
         tf.addStyleName("margin-rl30");
         hl.addComponent(tf);
         hl.setComponentAlignment(l, Alignment.MIDDLE_LEFT);
         hl.setComponentAlignment(tf, Alignment.MIDDLE_CENTER);
 
         HorizontalLayout hl2 = new HorizontalLayout();
-        Label lp = new Label("Username");
+        Label lp = new Label("Password");
         lp.addStyleName("margin-rl30");
         hl2.addComponent(lp);
         TextField tf2 = new TextField();
@@ -209,11 +211,14 @@ public class AdminUserView extends HorizontalLayout {
 
         Button b = new Button("Add");
         b.addClickListener(e -> {
-            if (Globals.control.getUser(tf.getValue()) != null) {
+
+            if (tf.getValue().length() == 0 || Globals.control.getUser(tf.getValue()) != null) {
                 info.removeStyleName("success-font");
                 info.addStyleName("error-font");
                 info.setValue("Name can't be empty and it must be unique");
-            } else {
+            }
+
+            else {
                 Globals.control.addUser(tf.getValue(), tf2.getValue(),
                         tf2.getValue().length() == 0 ? User.RIGHT.USER : User.RIGHT.PASSWORD,
                         ns.getCaption());

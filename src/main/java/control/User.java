@@ -47,5 +47,7 @@ public class User {
     }
     public boolean isAdmin() { return data.right == RIGHT.ADMIN ? true : false; }
 
-
+    public String getView() {
+        return data.view;
+    }
 }

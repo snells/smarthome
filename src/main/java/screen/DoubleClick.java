@@ -33,7 +33,6 @@ public class DoubleClick extends Button {
                         Globals.ui.access(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println("fn c =" + count);
                                 fn.fn(b, count);
                                 count = 0;
                             }

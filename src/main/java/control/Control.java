@@ -138,19 +138,30 @@ public class Control {
 		fileHandler.saveViews(viewsData);
 
 	}
-	public void removeView(ViewData v) {
-		viewsData.remove(v);
-		fileHandler.saveViews(viewsData);
-	}
-	public void removeView(String name) {
-		ViewData v = null;
-		for(ViewData t : viewsData)
-			if(t.name.equals(name)) {
-				v = t;
-				break;
+
+
+	private void checkUserViews(String v) {
+		boolean change = false;
+		for(User u : users)
+			if(u.getView().equals(v)) {
+				u.setView("default");
+				change = true;
 			}
-		if(v != null)
-			removeView(v);
+		if(Globals.user != null || Globals.user.getView().equals(v))
+			Globals.user.setView("default");
+
+		if(change)
+			fileHandler.saveLogin(usersData());
+	}
+
+	public void removeView(ViewData v) {
+		for(ViewData d : viewsData)
+			if(d.name.equals(v.name)) {
+				viewsData.remove(v);
+				fileHandler.saveViews(viewsData);
+				checkUserViews(v.name);
+				return;
+			}
 	}
 
 	public ViewData getView(String house, String name) {
@@ -194,8 +205,47 @@ public class Control {
 		return s;
 	}
 
+	public void updateView(String name, ViewData d) {
+		for(int n = 0; n < viewsData.size(); n++) {
+			ViewData tmp = viewsData.get(n);
+			if(tmp.name.equals(name))
+				viewsData.set(n, d);
+			View v = views.get(n);
+			if(v.getName().equals(name))
+				views.set(n, new View(d));
+		}
+		fileHandler.saveViews(viewsData);
+	}
+
+	public boolean viewNameFree(String name) {
+		for(ViewData d : viewsData)
+			if(d.name.equals(name))
+				return false;
+		return true;
+	}
 	public ArrayList<HouseData> getHouses() {
 		return conf.houses;
+	}
+
+	public ArrayList<SmartData> getAllObjects(String house) {
+		ArrayList<SmartData> objects = new ArrayList<>();
+		HouseData k = null;
+		for(HouseData d : conf.houses)
+			if(d.name.equals(house)) {
+				k = d;
+				break;
+			}
+		if(k == null)
+			return objects;
+		objects.addAll(k.objects);
+		return objects;
+	}
+
+	public ArrayList<String> getHouseNames() {
+		ArrayList<String> names = new ArrayList<>();
+		for(HouseData d : conf.houses)
+			names.add(d.name);
+		return names;
 	}
 
 }

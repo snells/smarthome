@@ -11,9 +11,10 @@ import java.util.ArrayList;
 public class NestedList extends VerticalLayout {
     private ArrayList<NestedList> list;
     private ArrayList<Button> buttons;
+    private DoubleClick but = null;
     private int margin;
     private String style;
-    private Resource downIcon = new ThemeResource("icons/down.png");
+    //private Resource downIcon = new ThemeResource("icons/down.png");
 
     private void init() {
     }
@@ -24,10 +25,7 @@ public class NestedList extends VerticalLayout {
         setSizeUndefined();
         margin = 0;
         buttons = new ArrayList<>();
-        Button dummy = new Button();
-        dummy.setStyleName("margin-left" + margin);
-        dummy.setStyleName("list-but");
-        this.addComponent(dummy);
+
     }
     public NestedList(int margin) {
         setSpacing(false);
@@ -36,10 +34,6 @@ public class NestedList extends VerticalLayout {
         setSizeUndefined();
         buttons = new ArrayList<>();
         this.margin = margin;
-        Button dummy = new Button();
-        dummy.setStyleName("margin-left" + margin);
-        dummy.setStyleName("list-but");
-        this.addComponent(dummy);
     }
 
     public void add(Button b) {
@@ -48,7 +42,8 @@ public class NestedList extends VerticalLayout {
         this.addComponent(b);
     }
     public NestedList nest(String name) {
-        Button b = new Button(name + FontAwesome.ARROW_DOWN.getHtml());
+        DoubleClick b = new DoubleClick(name + FontAwesome.ARROW_DOWN.getHtml());
+        but = b;
         b.setHtmlContentAllowed(true);
         NestedList l = new NestedList(margin + 15);
         l.setVisible(false);
@@ -68,5 +63,16 @@ public class NestedList extends VerticalLayout {
         this.addComponent(b);
         this.addComponent(l);
         return l;
+    }
+
+    public DoubleClick getButton(){
+        return but;
+    }
+
+    public void clear() {
+        this.removeAllComponents();
+        list = new ArrayList<>();
+        buttons = new ArrayList<>();
+
     }
 }
