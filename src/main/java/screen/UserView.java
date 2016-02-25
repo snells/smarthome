@@ -1,9 +1,8 @@
 package screen;
 
-import com.vaadin.shared.Connector;
-import com.vaadin.shared.communication.PushMode;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.UI;
+import Util.DoubleClick;
+import Util.NestedList;
+import Util.RenameBox;
 import com.vaadin.ui.VerticalLayout;
 import control.CategoryData;
 import control.SmartData;
@@ -12,7 +11,6 @@ import sh.Globals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class UserView extends VerticalLayout {
 

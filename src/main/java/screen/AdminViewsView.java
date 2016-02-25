@@ -1,12 +1,17 @@
 package screen;
 
+import Util.SelectorList;
 import com.vaadin.ui.*;
+import control.SmartData;
 import control.User;
 import control.UserData;
 import control.ViewData;
+import jdk.nashorn.internal.objects.Global;
 import sh.Globals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 
 public class AdminViewsView extends HorizontalLayout {
@@ -37,6 +42,7 @@ public class AdminViewsView extends HorizontalLayout {
             ViewData d = getView(t);
             if(d == null)
                 return;
+
             updateCtrl(d);
         });
         views = Globals.control.getViews();
@@ -103,6 +109,24 @@ public class AdminViewsView extends HorizontalLayout {
         */
     }
 
+    private SelectorList objectSelector(ArrayList<SmartData> objects) {
+        SelectorList sl = new SelectorList("All items", "Views items");
+        ArrayList<SmartData> all = Globals.control.getAllObjects("koti");
+        ArrayList<String> names = new ArrayList<>();
+        all.forEach(e -> names.add(e.name + " id " + e.id));
+        sl.addAll(names);
+        ArrayList<String> tmp = new ArrayList<>();
+        objects.forEach(e -> tmp.add(e.name + " id " + e.id));
+        sl.select(tmp);
+        sl.addValSelect(s -> {
+            System.out.println(s.split(" ")[0]);
+        });
+        sl.addValDelete(s -> {
+            String[] tt = s.split(" ");
+            System.out.println(tt[0]);
+        });
+        return sl;
+    }
 
     private void updateCtrl(ViewData d) {
         info.setValue("");
@@ -116,29 +140,34 @@ public class AdminViewsView extends HorizontalLayout {
             return;
         currentView = d;
         ctrlView.removeAllComponents();
+        ctrlView.addComponent(info);
         HorizontalLayout un = makeBox("name", "update");
         un.addStyleName("margin-bot30");
         ctrlView.addComponent(un);
 
-        if(!(d.name.equals("admin") || d.name.equals("default"))) {
+        if(!(d.name.equals("admin") && !d.name.equals("default"))) {
             Button del = new Button("Delete");
             del.addClickListener(e -> alertDel(d.name));
             del.addStyleName("margin-top40");
             del.addStyleName("margin-rl30");
             ctrlView.addComponent(del);
         }
-
-
+        SelectorList sl = objectSelector(d.objects);
+        ctrlView.addComponent(sl);
+        ctrlView.setExpandRatio(info, 0.1f);
+        ctrlView.setExpandRatio(un, 0.3f);
+        ctrlView.setExpandRatio(sl, 0.6f);
     }
 
     private void ctrlAddNew() {
+        ctrlView.removeAllComponents();
     }
 
     private void alertDel(String name) {
-        Window w = new Window();
+        Window w = new Window("Delete view");
         HorizontalLayout hl = new HorizontalLayout();
         //hl.addStyleName("popup-box");
-        Label l = new Label("Kill " + name + "?");
+        Label l = new Label("Delete view " + name + "?");
         l.addStyleName("margin-rl30");
         hl.addComponent(l);
         Button b = new Button("Yes");
@@ -148,7 +177,7 @@ public class AdminViewsView extends HorizontalLayout {
         b2.addStyleName("margin-r80");
 
         b.addClickListener(e -> {
-            Globals.control.removeUser(name);
+            Globals.control.removeView(name);
             views = Globals.control.getViews();
             updateList();
             ctrlView.removeAllComponents();
@@ -172,7 +201,7 @@ public class AdminViewsView extends HorizontalLayout {
         ArrayList<String> names = new ArrayList<>();
         names.add("Add new");
         for(ViewData d : views)
-            if(d.name.length() > 0)
+            if(d.name.length() > 0 || !d.name.equals("admin"))
                 names.add(d.name);
         viewList.addItems(names);
     }
@@ -180,6 +209,7 @@ public class AdminViewsView extends HorizontalLayout {
 
     public void show() {
         views = Globals.control.getViews();
+        currentView = null;
         updateList();
         ctrlView.removeAllComponents();
     }

@@ -155,14 +155,19 @@ public class Control {
 	}
 
 	public void removeView(ViewData v) {
+		removeView(v.name);
+	}
+
+	public void removeView(String name) {
 		for(ViewData d : viewsData)
-			if(d.name.equals(v.name)) {
-				viewsData.remove(v);
+			if(d.name.equals(name)) {
+				viewsData.remove(d);
 				fileHandler.saveViews(viewsData);
-				checkUserViews(v.name);
+				checkUserViews(name);
 				return;
 			}
 	}
+
 
 	public ViewData getView(String house, String name) {
 		String h = null;

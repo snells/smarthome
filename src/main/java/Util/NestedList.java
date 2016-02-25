@@ -1,8 +1,6 @@
-package screen;
+package Util;
 
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Resource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.VerticalLayout;
 

@@ -1,4 +1,4 @@
-package screen;
+package Util;
 
 import com.vaadin.ui.*;
 
