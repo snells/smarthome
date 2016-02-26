@@ -1,19 +1,15 @@
 package screen;
 
-import com.vaadin.server.GlobalResourceHandler;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import control.User;
 import control.UserData;
+import control.View;
 import control.ViewData;
-import javafx.scene.control.*;
-import jdk.nashorn.internal.objects.Global;
 import sh.Globals;
 
-import javax.swing.text.View;
 import java.util.ArrayList;
 
 
@@ -133,17 +129,17 @@ public class AdminUserView extends HorizontalLayout {
             logBox.addComponent(del);
 
         NativeSelect ns = new NativeSelect();
-        ArrayList<ViewData> views = Globals.control.getUserViews();
+        ArrayList<View> views = Globals.control.getUserViews();
         //ArrayList<String> names = new ArrayList<>();
         int n = 0;
         int current = 0;
-        for(ViewData v : views) {
-            if(v.name.equals("admin"))
+        for(View v : views) {
+            if(v.getName().equals("admin"))
                 continue;
             ns.addItem(n);
-            if(v.name.equals(currentUser.view))
+            if(v.getName().equals(currentUser.view))
                 current = n;
-            ns.setItemCaption(n++, v.name);
+            ns.setItemCaption(n++, v.getName());
         }
         HorizontalLayout viewBox = new HorizontalLayout();
         Label vl = new Label("Select view");
@@ -235,16 +231,16 @@ public class AdminUserView extends HorizontalLayout {
         logBox.addComponents(hl, hl2, b);
 
 
-        ArrayList<ViewData> views = Globals.control.getUserViews();
+        ArrayList<View> views = Globals.control.getUserViews();
         int n = 0;
         int current = 0;
-        for (ViewData v : views) {
-            if (v.name.equals("admin"))
+        for (View v : views) {
+            if (v.getName().equals("admin"))
                 continue;
             ns.addItem(n);
-            if (v.name.equals("default"))
+            if (v.getName().equals("default"))
                 current = n;
-            ns.setItemCaption(n++, v.name);
+            ns.setItemCaption(n++, v.getName());
         }
         HorizontalLayout viewBox = new HorizontalLayout();
         Label vl = new Label("Select view");

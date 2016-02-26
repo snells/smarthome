@@ -1,10 +1,9 @@
-package house;
+package control;
 
 import control.HouseData;
 import control.SmartData;
-import house.Room;
+import control.SmartObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -19,7 +18,12 @@ public class House {
     public HouseData getData() {
         return data;
     }
-    
+
+    public static ArrayList<House> genHouses(ArrayList<HouseData> data) {
+        ArrayList<House> h = new ArrayList<>();
+        data.forEach(e -> h.add(new House(e)));
+        return h;
+    }
     
     public ArrayList<SmartObject> getObjects() {
         ArrayList<SmartObject> objects = new ArrayList<>();

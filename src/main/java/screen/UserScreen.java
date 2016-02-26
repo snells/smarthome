@@ -4,6 +4,7 @@ import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import control.User;
+import control.View;
 import control.ViewData;
 import jdk.nashorn.internal.objects.Global;
 import sh.Globals;
@@ -13,7 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 
 public class UserScreen extends VerticalLayout implements Screen {
-	ArrayList<ViewData> views;
+	ArrayList<View> views;
 	private User user = null;
 	public UserScreen() {
 		views = Globals.control.getViews();

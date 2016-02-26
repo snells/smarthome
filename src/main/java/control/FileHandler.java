@@ -4,13 +4,8 @@ package control;
 import java.io.*;
 import java.util.ArrayList;
 
-/**
- * Created by s on 2/15/16.
- */
 public class FileHandler {
 
-	// helpoin varmaan jos kirjoitat objektina tiedostoon 
-	// voit toki tallentaa xml/json/? tiedostona mutta todennäköisesti vaikeampaa 
 	
 	private  File path = new File(System.getProperty("user.home"));
 	private  File confFile = new File(path + "/.smarthome-conf");

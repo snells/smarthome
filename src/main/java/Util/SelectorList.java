@@ -46,6 +46,20 @@ public class SelectorList extends VerticalLayout {
         this.addComponents(hl);
     }
 
+    public void setTitles(String l, String r) {
+        titleLeft.setValue(l);
+        titleRight.setValue(r);
+    }
+
+    public void clear() {
+        valsLeft = new ArrayList<>();
+        valsRight = new ArrayList<>();
+        listLeft.removeAllItems();
+        listRight.removeAllItems();
+        titleLeft.setValue("");
+        titleRight.setValue("");
+    }
+
     private void addAllVal(String v) {
         if(valsLeft.contains(v))
             return;

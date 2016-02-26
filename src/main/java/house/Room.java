@@ -1,5 +1,8 @@
 package house;
 
+import control.House;
+import control.SmartObject;
+
 import java.util.ArrayList;
 
 

@@ -26,6 +26,12 @@ public class User {
     }
 
 
+    public static ArrayList<User> genUsers(ArrayList<UserData> data) {
+        ArrayList<User> s = new ArrayList<>();
+        data.forEach(e -> s.add(new User(e)));
+        return s;
+    }
+
 
     public void setView(String view) {
         data.view = view;

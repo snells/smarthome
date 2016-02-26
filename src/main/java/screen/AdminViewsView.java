@@ -2,10 +2,7 @@ package screen;
 
 import Util.SelectorList;
 import com.vaadin.ui.*;
-import control.SmartData;
-import control.User;
-import control.UserData;
-import control.ViewData;
+import control.*;
 import jdk.nashorn.internal.objects.Global;
 import sh.Globals;
 
@@ -17,9 +14,9 @@ import java.util.HashSet;
 public class AdminViewsView extends HorizontalLayout {
 
 
-    private ViewData currentView = null;
+    private View currentView = null;
     private ListSelect viewList = new ListSelect();
-    private ArrayList<ViewData> views;
+    private ArrayList<View> views;
     private VerticalLayout ctrlView = new VerticalLayout();
     private Label info = new Label();
 
@@ -39,7 +36,7 @@ public class AdminViewsView extends HorizontalLayout {
                 return;
             }
 
-            ViewData d = getView(t);
+            View d = getView(t);
             if(d == null)
                 return;
 
@@ -53,9 +50,9 @@ public class AdminViewsView extends HorizontalLayout {
     }
 
 
-    private ViewData getView(String name) {
-        for(ViewData d : views)
-            if(d.name.equals(name))
+    private View getView(String name) {
+        for(View d : views)
+            if(d.getName().equals(name))
                 return d;
         return null;
     }
@@ -128,7 +125,7 @@ public class AdminViewsView extends HorizontalLayout {
         return sl;
     }
 
-    private void updateCtrl(ViewData d) {
+    private void updateCtrl(View d) {
         info.setValue("");
         info.removeStyleName("error-font");
         info.removeStyleName("success-font");
@@ -136,7 +133,7 @@ public class AdminViewsView extends HorizontalLayout {
             ctrlView.removeAllComponents();
             return;
         }
-        if(currentView != null && d.name.equals(currentView.name))
+        if(currentView != null && d.getName().equals(currentView.getName()))
             return;
         currentView = d;
         ctrlView.removeAllComponents();
@@ -145,14 +142,14 @@ public class AdminViewsView extends HorizontalLayout {
         un.addStyleName("margin-bot30");
         ctrlView.addComponent(un);
 
-        if(!(d.name.equals("admin") && !d.name.equals("default"))) {
+        if(!d.getName().equals("default")) {
             Button del = new Button("Delete");
-            del.addClickListener(e -> alertDel(d.name));
+            del.addClickListener(e -> alertDel(d.getName()));
             del.addStyleName("margin-top40");
             del.addStyleName("margin-rl30");
             ctrlView.addComponent(del);
         }
-        SelectorList sl = objectSelector(d.objects);
+        SelectorList sl = objectSelector(d.getData().objects);
         ctrlView.addComponent(sl);
         ctrlView.setExpandRatio(info, 0.1f);
         ctrlView.setExpandRatio(un, 0.3f);
@@ -161,6 +158,10 @@ public class AdminViewsView extends HorizontalLayout {
 
     private void ctrlAddNew() {
         ctrlView.removeAllComponents();
+
+
+
+
     }
 
     private void alertDel(String name) {
@@ -200,9 +201,9 @@ public class AdminViewsView extends HorizontalLayout {
         viewList.removeAllItems();
         ArrayList<String> names = new ArrayList<>();
         names.add("Add new");
-        for(ViewData d : views)
-            if(d.name.length() > 0 || !d.name.equals("admin"))
-                names.add(d.name);
+        for(View d : views)
+            if(d.getName().length() > 0 && !d.getName().equals("admin"))
+                names.add(d.getName());
         viewList.addItems(names);
     }
 

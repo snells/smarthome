@@ -2,10 +2,6 @@ package control;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-
-import house.House;
 
 public class HomeConf implements Serializable {
 	public static final long serialVersionUID = 1L;

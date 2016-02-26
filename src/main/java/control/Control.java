@@ -1,6 +1,5 @@
 package control;
 
-import house.House;
 import screen.Screen;
 import sh.Globals;
 
@@ -9,37 +8,36 @@ import java.util.ArrayList;
 public class Control {
 	private FileHandler fileHandler = new FileHandler();
 	private ArrayList<User> users;
-	private ArrayList<ViewData> viewsData;
 	private ArrayList<View> views;
-	private HomeConf conf;
 	private ArrayList<House> houses;
+	private ArrayList<SmartObject> objects;
+	private HomeConf conf;
 	private int lastId = -1;
 
 	public Control() {
 	}
 
-
 	public void init() {
-		users = new ArrayList<>();
 		ArrayList<UserData> tmpData = fileHandler.loadLogin();
 		if(tmpData.size() == 0)
 			tmpData = Default.genDefaultUsers();
-		for (UserData d : tmpData)
-			users.add(new User(d));
-		viewsData = fileHandler.loadViews();
-		if (viewsData.size() == 0) {
-			viewsData = Default.genDefaultViews();
-		}
-		views = new ArrayList<>();
-		for(ViewData d : viewsData)
-			views.add(new View(d));
+		users = User.genUsers(tmpData);
 
+		ArrayList<ViewData> tmpv = fileHandler.loadViews();
+		if (tmpv.size() == 0) {
+			tmpv= Default.genDefaultViews();
+		}
+		views = View.genViews(tmpv);
 		conf = fileHandler.loadConf();
 
+		houses = House.genHouses(conf.houses);
+		objects = new ArrayList<>();
 		for(HouseData d : conf.houses)
-			for(SmartData s : d.objects)
-				if(s.id > lastId)
+			for(SmartData s : d.objects) {
+				objects.add(new SmartObject(s));
+				if (s.id > lastId)
 					lastId = s.id;
+			}
 		lastId++;
 	}
 
@@ -133,10 +131,11 @@ public class Control {
 	}
 
 	public void addView(ViewData v) {
-		viewsData.add(v);
-
-		fileHandler.saveViews(viewsData);
-
+		for(View x : views)
+			if(v.name.equals(x.getName()))
+				return;
+		views.add(new View(v));
+		fileHandler.saveViews(View.getData(views));
 	}
 
 
@@ -159,17 +158,17 @@ public class Control {
 	}
 
 	public void removeView(String name) {
-		for(ViewData d : viewsData)
-			if(d.name.equals(name)) {
-				viewsData.remove(d);
-				fileHandler.saveViews(viewsData);
+		for(View d : views)
+			if(d.getName().equals(name)) {
+				views.remove(d);
+				fileHandler.saveViews(View.getData(views));
 				checkUserViews(name);
 				return;
 			}
 	}
 
 
-	public ViewData getView(String house, String name) {
+	public View getView(String house, String name) {
 		String h = null;
 		for(HouseData d : conf.houses)
 			if(d.name.equals(house)) {
@@ -178,8 +177,8 @@ public class Control {
 			}
 		if(h == null)
 			return null;
-		for(ViewData v : viewsData)
-			if(v.house.equals(h) && v.name.equals(name))
+		for(View v : views)
+			if(v.getHouse().equals(h) && v.getName().equals(name))
 				return v;
 		return null;
 	}
@@ -188,17 +187,17 @@ public class Control {
 		return (getUser(name).getPassword().length() != 0);
 	}
 
-	public ArrayList<ViewData> getViews() {
-		return viewsData;
+	public ArrayList<View> getViews() {
+		return views;
 	}
-	public ArrayList<ViewData> getUserViews() {
-		return viewsData;
+	public ArrayList<View> getUserViews() {
+		return views;
 	}
 
 	public ArrayList<String> getViewsNames() {
 		ArrayList<String> names = new ArrayList<>();
-		for(ViewData v : viewsData)
-			names.add(v.name);
+		for(View v: views)
+			names.add(v.getName());
 		return names;
 	}
 
@@ -211,20 +210,17 @@ public class Control {
 	}
 
 	public void updateView(String name, ViewData d) {
-		for(int n = 0; n < viewsData.size(); n++) {
-			ViewData tmp = viewsData.get(n);
-			if(tmp.name.equals(name))
-				viewsData.set(n, d);
-			View v = views.get(n);
-			if(v.getName().equals(name))
+		for(int n = 0; n < views.size(); n++) {
+			View tmp = views.get(n);
+			if(tmp.getName().equals(name))
 				views.set(n, new View(d));
 		}
-		fileHandler.saveViews(viewsData);
+		fileHandler.saveViews(View.getData(views));
 	}
 
 	public boolean viewNameFree(String name) {
-		for(ViewData d : viewsData)
-			if(d.name.equals(name))
+		for(View d : views)
+			if(d.getName().equals(name))
 				return false;
 		return true;
 	}
