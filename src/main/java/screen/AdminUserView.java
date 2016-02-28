@@ -124,7 +124,9 @@ public class AdminUserView extends HorizontalLayout {
         del.addStyleName("margin-top40");
         del.addStyleName("margin-rl30");
         VerticalLayout logBox = new VerticalLayout();
-        logBox.addComponents(un, pn);
+        if(d.right != User.RIGHT.ADMIN)
+            logBox.addComponent(un);
+        logBox.addComponent(pn);
         if(d.right != User.RIGHT.ADMIN)
             logBox.addComponent(del);
 
@@ -153,7 +155,7 @@ public class AdminUserView extends HorizontalLayout {
                 v = ns.getItemCaption(0);
                 ns.select(0);
             }
-            System.out.println("Selected " + v);
+
             currentUser.view = v;
             Globals.control.userUpdateView(currentUser.name, v);
             users = Globals.control.usersData();

@@ -58,7 +58,7 @@ public class RenameBox extends Window {
                 this.close();
                 return;
             }
-            w.setCaption(tf.getValue());
+            //w.setCaption(tf.getValue());
             fn.fn(tf.getValue());
             this.close();
         });

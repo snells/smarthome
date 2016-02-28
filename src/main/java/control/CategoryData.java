@@ -19,4 +19,9 @@ public class CategoryData implements Serializable {
         this.name = name;
         objects = new ArrayList<>();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return name.equals(((CategoryData)o).name);
+    }
 }

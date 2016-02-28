@@ -37,7 +37,7 @@ public class UserView extends VerticalLayout {
             all.add(b);
         }
 */
-        addSensors(all, view.getObjects());
+        //addSensors(all, view.getObjects());
 
         for(Category d : data.getCategories()) {
             if (d.getName().length() > 0) {

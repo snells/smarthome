@@ -24,6 +24,10 @@ public class House {
         data.forEach(e -> h.add(new House(e)));
         return h;
     }
+
+    public String getName() {
+        return data.name;
+    }
     
     public ArrayList<SmartObject> getObjects() {
         ArrayList<SmartObject> objects = new ArrayList<>();

@@ -1,5 +1,6 @@
 package screen;
 
+import Util.Alert;
 import com.vaadin.ui.*;
 import sh.Globals;
 
@@ -93,6 +94,8 @@ public class AdminScreen extends AbsoluteLayout implements Screen {
     @Override
     public void show() {
         this.setVisible(true);
+        if(!Globals.control.checkViews("koti"))
+            Alert.alert("Some view has object(s) that are not in the in the house");
     }
 
     @Override
@@ -100,8 +103,10 @@ public class AdminScreen extends AbsoluteLayout implements Screen {
         this.setVisible(false);
     }
 
-    @Override
-    public void alert(String stuff) {
 
+    public void update() {
+        //housesView.update();
+        if(viewsView.isVisible())
+        viewsView.update();
     }
 }

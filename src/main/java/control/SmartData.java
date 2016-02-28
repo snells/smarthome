@@ -15,4 +15,9 @@ public class SmartData implements Serializable {
         this.room = room;
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return id == ((SmartData)o).id;
+    }
 }

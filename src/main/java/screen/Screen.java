@@ -12,7 +12,8 @@ public interface Screen {
 
     public abstract void hide();
 
-    public abstract void alert(String stuff);
+    public abstract void update();
+    //public abstract void alert(String stuff);
 }
 
 

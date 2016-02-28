@@ -60,6 +60,12 @@ public class SelectorList extends VerticalLayout {
         titleRight.setValue("");
     }
 
+    public void clearSelected() {
+        valsRight = new ArrayList<>();
+        listRight.removeAllItems();
+        titleRight.setValue("");
+    }
+
     private void addAllVal(String v) {
         if(valsLeft.contains(v))
             return;
@@ -68,6 +74,13 @@ public class SelectorList extends VerticalLayout {
         //listLeft.setItemCaption(lastId, v);
 
         }
+
+    public String getTitleLeft() {
+        return titleLeft.getValue();
+    }
+    public String getTitleRight() {
+        return titleRight.getValue();
+    }
 
     private void addVal(String v) {
         if(valsRight.contains(v) || !valsLeft.contains(v))

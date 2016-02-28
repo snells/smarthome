@@ -1,5 +1,6 @@
 package control;
 
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,11 @@ public class UserData implements Serializable {
         this.right = right;
         this.view = view;
         this.objectAliases = aliases;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return ((UserData)o).name.equals(name);
     }
 }
 

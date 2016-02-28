@@ -32,7 +32,10 @@ public class FileHandler {
         return views;
     }
 
-    public  void saveViews(ArrayList<ViewData> data) {}
+    public  void saveViews(ArrayList<ViewData> data) {
+        write(data, viewFile);
+
+    }
 
 
     public  void saveConf(HomeConf conf) {
@@ -43,8 +46,10 @@ public class FileHandler {
     
     public HomeConf loadConf() {
     	HomeConf hc = load(confFile);
-        if(hc == null)
-            return new HomeConf();
+        if(hc == null) {
+            hc = new HomeConf();
+            saveConf(hc);
+        }
         return hc;
     }
 

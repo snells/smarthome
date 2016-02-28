@@ -33,8 +33,7 @@ public class UserScreen extends VerticalLayout implements Screen {
 		this.setVisible(false);
 	}
 
-	@Override
-	public void alert(String stuff) {
+	public void update() {
 
 	}
 }

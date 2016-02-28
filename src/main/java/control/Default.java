@@ -12,8 +12,8 @@ public class Default {
 
     public static ArrayList<ViewData> genDefaultViews() {
         ArrayList<ViewData> ret = new ArrayList<>();
-        ret.add(new ViewData("admin", "koti", genDefaultObjects()));
-        ret.add(new ViewData("default", "koti", genDefaultObjects()));
+        ret.add(new ViewData("admin", "koti"));//, genDefaultObjects()));
+        ret.add(new ViewData("default", "koti"));//, genDefaultObjects()));
         return ret;
     }
 

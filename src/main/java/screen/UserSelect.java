@@ -94,8 +94,9 @@ public class UserSelect extends AbsoluteLayout implements Screen {
         hidePass();
     }
 
+
     @Override
-    public void alert(String stuff) {
+    public void update() {
 
     }
 

@@ -55,11 +55,11 @@ public class Root extends AbsoluteLayout {
 	}
 	
 
-
+/*
 	public void alert(String text) {
-		currentScreen.alert(text);
+		//currentScreen.alert(text);
 	}
-
+*/
 	private Screen getScreen(Screen.TYPE sc) {
 		switch (sc) {
 			case USER_SELECT: return userSelect;
@@ -81,5 +81,8 @@ public class Root extends AbsoluteLayout {
 		currentScreen.show();
 	}
 
+	public void update() {
+		currentScreen.update();
+	}
 
 }
