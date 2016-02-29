@@ -1,4 +1,4 @@
-package Util;
+package util;
 
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;

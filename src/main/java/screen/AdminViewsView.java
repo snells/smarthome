@@ -1,17 +1,12 @@
 package screen;
 
-import Util.NestedList;
-import Util.SelectorList;
-import com.vaadin.navigator.*;
+import util.SelectorList;
 import com.vaadin.ui.*;
 import control.*;
 import control.View;
-import jdk.nashorn.internal.objects.Global;
 import sh.Globals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 
 
 public class AdminViewsView extends HorizontalLayout {
@@ -186,7 +181,8 @@ public class AdminViewsView extends HorizontalLayout {
         });
         ctrlView.addComponent(ctrl);
         ctrlView.addComponent(sl);
-
+        ctrlView.setComponentAlignment(ctrl, Alignment.MIDDLE_LEFT);
+        ctrlView.setComponentAlignment(sl, Alignment.MIDDLE_RIGHT);
         /*
         HorizontalLayout un = makeBox("name", "update");
         un.addStyleName("margin-bot30");

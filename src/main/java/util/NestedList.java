@@ -1,4 +1,4 @@
-package Util;
+package util;
 
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;

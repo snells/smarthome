@@ -1,10 +1,8 @@
-package Util;
+package util;
 
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.TextField;
-
-import java.io.InputStream;
 
 
 public class InputWindow extends Window {

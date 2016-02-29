@@ -1,8 +1,8 @@
 package screen;
 
-import Util.DoubleClick;
-import Util.NestedList;
-import Util.RenameBox;
+import util.DoubleClick;
+import util.NestedList;
+import util.RenameBox;
 import com.vaadin.ui.VerticalLayout;
 import control.*;
 import sh.Globals;

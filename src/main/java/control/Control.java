@@ -343,5 +343,12 @@ public class Control {
 	private void saveConf() {
 		fileHandler.saveConf(conf);
 	}
+
+
+	public void updateObject(SmartObject object) {
+		conf.update(object);
+		Globals.root.update();
+		//objects = conf.getObjects(getHomeName());
+	}
 }
 

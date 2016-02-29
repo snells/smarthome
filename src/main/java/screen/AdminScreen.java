@@ -1,6 +1,6 @@
 package screen;
 
-import Util.Alert;
+import util.Alert;
 import com.vaadin.ui.*;
 import sh.Globals;
 

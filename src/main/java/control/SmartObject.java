@@ -1,6 +1,7 @@
 package control;
 
 import control.SmartData;
+import sh.Globals;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -10,10 +11,8 @@ import java.util.HashMap;
 public class SmartObject {
 
 	private SmartData data;
-	private HashMap<String,String> atr;
 
 	public SmartObject(SmartData d) {
-		atr = new HashMap<>();
 		data = d;
 
 	}
@@ -67,15 +66,46 @@ public class SmartObject {
 	}
 
 	public String atrState(String atr) {
+		for(Attribute b : data.atrs)
+			if(b.name.equals(atr))
+				return b.state;
+		return "";
+	}
+
+
+	public Attribute getAtr(String name) {
+		for(Attribute a : data.atrs)
+			if(a.name.equals(name))
+				return a;
 		return null;
 	}
 
+	public void atrB1(String atr) {
+		Attribute a = getAtr(atr);
+		if(a == null)
+			return;
+		a.b1fn.fn();
+	}
+
+	public void setType(int t) {
+		data.type = t;
+	}
+
+	public void addAtr(Attribute atr) {
+		data.atrs.add(atr);
+
+	}
 	public void setName(String n) {
 		data.name = n;
 	}
-	public String[] attributes() {
-		return (String[])atr.keySet().toArray();
+
+	public String[] attributeNames() {
+		String[] names = new String[data.atrs.size()];
+		for(int n = 0; n < data.atrs.size(); n++)
+			names[n] = data.atrs.get(n).name;
+		return names;
 	}
+
 
 
 

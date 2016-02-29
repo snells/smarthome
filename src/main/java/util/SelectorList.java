@@ -1,11 +1,8 @@
-package Util;
+package util;
 
-import com.vaadin.data.validator.IntegerRangeValidator;
 import com.vaadin.ui.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 
 public class SelectorList extends VerticalLayout {
