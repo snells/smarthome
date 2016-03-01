@@ -87,6 +87,13 @@ public class SmartObject {
 		a.b1fn.fn();
 	}
 
+	public void atrB2(String atr) {
+		Attribute a = getAtr(atr);
+		if(a == null)
+			return;
+		a.b2fn.fn();
+	}
+
 	public void setType(int t) {
 		data.type = t;
 	}
@@ -106,7 +113,7 @@ public class SmartObject {
 		return names;
 	}
 
-	public boolean AtrHasButton(String atr) {
+	public boolean atrHasButton(String atr) {
 		Attribute b = getAtr(atr);
 		if(b == null)
 			return false;

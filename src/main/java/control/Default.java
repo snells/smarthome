@@ -19,9 +19,12 @@ public class Default {
 
     public static ArrayList<SmartData> genDefaultObjects() {
         ArrayList<SmartData> ret = new ArrayList<>();
-        ret.add(new SmartData("sensori1", "huone1", Globals.control.getUniqueId()));
-        ret.add(new SmartData("sensori2", "huone1", Globals.control.getUniqueId()));
-        ret.add(new SmartData("sensori3", "huone2", Globals.control.getUniqueId()));
+        ret.add(genTable());
+        ret.add(genDoor());
+        ret.add(genLamp());
+        //ret.add(new SmartData("sensori1", "huone1", Globals.control.getUniqueId()));
+        //ret.add(new SmartData("sensori2", "huone1", Globals.control.getUniqueId()));
+        //ret.add(new SmartData("sensori3", "huone2", Globals.control.getUniqueId()));
         ret.add(new SmartData("sensori4", "huone2", Globals.control.getUniqueId()));
         return ret;
     }
@@ -52,6 +55,9 @@ public class Default {
 
     private static SmartData genDoor() {
         SmartObject o = new SmartObject(new SmartData("Ovi", "huone1", Globals.control.getUniqueId()));
+        o.addAtr(new Attribute("auki", "ei", "avaa", "sulje",
+                (atr) -> { atr.state = "auki"; },
+                (atr) -> { atr.state = "kiinni"; }));
         return o.getData();
     }
 
@@ -64,6 +70,8 @@ public class Default {
     }
     private static SmartData genTable() {
         SmartObject o = new SmartObject(new SmartData("Pöytä", "huone1", Globals.control.getUniqueId()));
+        o.addAtr(new Attribute("lämpötila", "kylmä"));
+        o.addAtr(new Attribute("jalat", "4"));
         return o.getData();
     }
 }
