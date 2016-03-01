@@ -106,6 +106,13 @@ public class SmartObject {
 		return names;
 	}
 
+	public boolean AtrHasButton(String atr) {
+		Attribute b = getAtr(atr);
+		if(b == null)
+			return false;
+		return b.hasButtons;
+	}
+
 
 
 }

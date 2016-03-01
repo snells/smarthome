@@ -23,6 +23,7 @@ public class Attribute implements Serializable {
     public String b2;
     public AtrFn b1fn;
     public AtrFn b2fn;
+    public boolean hasButtons;
     public Attribute(String name, String state) {
         this.name = name;
         this.state = state;
@@ -30,6 +31,7 @@ public class Attribute implements Serializable {
         b2 = "";
         b1fn = () -> {};
         b2fn = () -> {};
+        hasButtons = false;
 
     }
     public Attribute(String name, String state, String b1, String b2, AtrWrapper f1, AtrWrapper f2) {
@@ -39,6 +41,7 @@ public class Attribute implements Serializable {
         this.b2 = b2;
         b1fn = () -> {f1.wrapper(this); };
         b2fn = () -> {f2.wrapper(this); };
+        hasButtons = true;
     }
 
 }
