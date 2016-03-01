@@ -58,7 +58,7 @@ public class Default {
     private static SmartData genLamp() {
         SmartObject o = new SmartObject(new SmartData("Lamppu", "huone1", Globals.control.getUniqueId()));
         o.addAtr(new Attribute("päällä", "ei", "On", "Off",
-                () -> { },
+                () -> {  },
                 () -> { }));
         return o.getData();
     }

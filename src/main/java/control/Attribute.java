@@ -13,6 +13,10 @@ public class Attribute implements Serializable {
     public interface AtrFn {
         public void fn();
     }
+
+    public interface AtrWrapper {
+        public void wrapper(Attribute b);
+    }
     public String name;
     public String state;
     public String b1;
@@ -28,13 +32,13 @@ public class Attribute implements Serializable {
         b2fn = () -> {};
 
     }
-    public Attribute(String name, String state, String b1, String b2, AtrFn f1, AtrFn f2) {
+    public Attribute(String name, String state, String b1, String b2, AtrWrapper f1, AtrWrapper f2) {
         this.name =name;
         this.state = state;
         this.b1 = b1;
         this.b2 = b2;
-        b1fn = f1;
-        b2fn = f2;
+        b1fn = () -> {f1.wrapper(this); };
+        b2fn = () -> {f2.wrapper(this); };
     }
 
 }
