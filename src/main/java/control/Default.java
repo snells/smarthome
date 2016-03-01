@@ -58,14 +58,12 @@ public class Default {
     private static SmartData genLamp() {
         SmartObject o = new SmartObject(new SmartData("Lamppu", "huone1", Globals.control.getUniqueId()));
         o.addAtr(new Attribute("päällä", "ei", "On", "Off",
-                () -> {  },
-                () -> { }));
+                (atr) -> { atr.state = "On"; },
+                (atr) -> { atr.state = "Off"; }));
         return o.getData();
     }
     private static SmartData genTable() {
         SmartObject o = new SmartObject(new SmartData("Pöytä", "huone1", Globals.control.getUniqueId()));
         return o.getData();
     }
-
-
 }
