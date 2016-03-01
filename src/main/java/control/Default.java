@@ -52,19 +52,18 @@ public class Default {
 
     private static SmartData genDoor() {
         SmartObject o = new SmartObject(new SmartData("Ovi", "huone1", Globals.control.getUniqueId()));
-        o.addAtr("auki", "ei");
         return o.getData();
     }
 
     private static SmartData genLamp() {
         SmartObject o = new SmartObject(new SmartData("Lamppu", "huone1", Globals.control.getUniqueId()));
-        o.addAtr("päällä", "ei");
+        o.addAtr(new Attribute("päällä", "ei", "On", "Off",
+                () -> { },
+                () -> { }));
         return o.getData();
     }
     private static SmartData genTable() {
         SmartObject o = new SmartObject(new SmartData("Pöytä", "huone1", Globals.control.getUniqueId()));
-        o.addAtr("jalat", "4");
-        o.addAtr("lämpötila", "-10");
         return o.getData();
     }
 
