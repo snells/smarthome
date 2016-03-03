@@ -14,18 +14,20 @@ import java.util.concurrent.ScheduledExecutorService;
 
 
 public class UserScreen extends VerticalLayout implements Screen {
-	ArrayList<View> views;
+	UserView view;
 	private User user = null;
 	public UserScreen() {
-		views = Globals.control.getViews();
-		this.addComponent(new Label("Nothing yet"));
+		view = null;
 	}
 
 	@Override
 	public void show() {
+		this.removeAllComponents();
 		this.setVisible(true);
 		user = Globals.user;
-
+		view = new UserView(user);
+		view.setSizeFull();
+		this.addComponent(view);
 	}
 
 	@Override

@@ -106,10 +106,10 @@ public class SmartObject {
 		data.name = n;
 	}
 
-	public String[] attributeNames() {
-		String[] names = new String[data.atrs.size()];
+	public ArrayList<String> attributeNames() {
+		ArrayList<String> names = new ArrayList<>();
 		for(int n = 0; n < data.atrs.size(); n++)
-			names[n] = data.atrs.get(n).name;
+			names.add(data.atrs.get(n).name);
 		return names;
 	}
 

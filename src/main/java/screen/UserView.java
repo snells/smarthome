@@ -1,5 +1,6 @@
 package screen;
 
+import com.vaadin.ui.HorizontalLayout;
 import util.DoubleClick;
 import util.NestedList;
 import util.RenameBox;
@@ -10,7 +11,7 @@ import sh.Globals;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserView extends VerticalLayout {
+public class UserView extends HorizontalLayout {
 
     ViewCtrl viewCtrl;
     private View view = null;
@@ -22,7 +23,7 @@ public class UserView extends VerticalLayout {
         objectView = new ObjectCtrl();
         view = Globals.control.getView(Globals.control.getHomeName(), user.getView());
         init();
-
+        this.addComponent(viewCtrl);
     }
 
     public void init() {

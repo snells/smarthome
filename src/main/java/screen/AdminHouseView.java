@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class AdminHouseView extends AbsoluteLayout {
 
     private VerticalLayout houseBox = new VerticalLayout();
-    private UserView userView = new UserView();
+    //private UserView userView = new UserView();
     private ArrayList<HouseData> houses;
     private HouseData currentHouse;
     private Resource homeIcon = new ThemeResource("icons/home.png");
@@ -23,8 +23,8 @@ public class AdminHouseView extends AbsoluteLayout {
         houseBox.setSizeFull();
         houseBox.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         this.addComponent(houseBox, "left: 25%; right: 25%; top: 15px");
-        this.addComponent(userView, "left: 0%; right: 75%; top: 0px");
-        userView.setVisible(false);
+        //this.addComponent(userView, "left: 0%; right: 75%; top: 0px");
+        //userView.setVisible(false);
     }
 
 
@@ -49,12 +49,12 @@ public class AdminHouseView extends AbsoluteLayout {
 
     private void houseSelect() {
         houseBox.setVisible(true);
-        userView.setVisible(false);
+        //userView.setVisible(false);
     }
     private void viewsShow() {
         houseBox.setVisible(false);
-        userView.init(Globals.control.getView(currentHouse.name, "admin"));
-        userView.setVisible(true);
+        //userView.init(Globals.control.getView(currentHouse.name, "admin"));
+        //userView.setVisible(true);
     }
     public void show() {
          houseSelect();
