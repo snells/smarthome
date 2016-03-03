@@ -9,12 +9,16 @@ import sh.Globals;
 import java.util.ArrayList;
 
 public class ViewCtrl extends NestedList {
+    public interface ItemSelectFn {
+        public void select(int id);
+    }
     private View view;
     private NestedList groups;
     private boolean right;
     public static String selected;
     public static ArrayList<String> open;
     InputWindow.Fn fn;
+    ItemSelectFn itemSelectFn;
 
     public ViewCtrl(View v, boolean access, InputWindow.Fn fn) {
         super();
@@ -25,6 +29,20 @@ public class ViewCtrl extends NestedList {
         right = access;
         view = v;
         this.fn = fn;
+        itemSelectFn = null;
+        update();
+    }
+
+    public ViewCtrl(View v, boolean access, InputWindow.Fn fn, ItemSelectFn fn2) {
+        super();
+        if (selected == null) {
+            selected = "";
+            open = new ArrayList<>();
+        }
+        right = access;
+        view = v;
+        this.fn = fn;
+        this.itemSelectFn = fn2;
         update();
     }
 
@@ -100,8 +118,14 @@ public class ViewCtrl extends NestedList {
         for(Category c : view.getCategories()) {
             NestedList l = groups.nest(c.getName(), open.contains(c.getName()), fn);
             addGroupFn(l.getButton(), c.getName());
-            for (SmartObject o : c.getObjects())
-                l.add(new Button(o.getName()));
+            for (SmartObject o : c.getObjects()) {
+                Button ob = new Button(o.getName());
+                if(itemSelectFn != null)
+                    ob.addClickListener(e -> {
+                        itemSelectFn.select(o.getId());
+                    });
+                l.add(ob);
+            }
         }
         if(selected.length() > 0)
             fn.fn(selected);
