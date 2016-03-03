@@ -63,15 +63,14 @@ box-shadow: 10px 10px 5px #888888;
 margin-top: 0px;
 width: 150px;
 height: 20px;
-text-align: center;
-padding: 0px 0px 0px 0px;
+text-align: left;
+//padding: 0px 0px 0px 0px;
 margin-bottom: 0px;
 }
 
 .list-but .v-icon {
-//float: left;
-margin-left: 100px;
-margin-top: -10px;
+position: absolute;
+right: 5px;
 height: 15px;
 }
 
