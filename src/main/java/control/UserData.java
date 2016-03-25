@@ -13,9 +13,11 @@ public class UserData implements Serializable {
     public String view;
     public User.RIGHT right;
     public HashMap<String, String> objectAliases;
+    public boolean showTips;
 
 
     public UserData(String name, String pass, User.RIGHT right, String view, HashMap<String, String> aliases) {
+        showTips = true;
         this.name = name;
         password = pass;
         this.right = right;

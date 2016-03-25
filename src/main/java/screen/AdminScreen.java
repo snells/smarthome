@@ -78,6 +78,7 @@ public class AdminScreen extends AbsoluteLayout implements Screen {
         }
         else if(n == 1) {
             housesView.show();
+            if(Globals.user.tips()) housesView.tip();
             usersView.setVisible(false);
             housesView.setVisible(true);
             viewsView.setVisible(false);
@@ -85,6 +86,7 @@ public class AdminScreen extends AbsoluteLayout implements Screen {
         }
         else {
             viewsView.show();
+            if(Globals.user.tips()) viewsView.tip();
             usersView.setVisible(false);
             housesView.setVisible(false);
             viewsView.setVisible(true);

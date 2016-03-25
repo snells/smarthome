@@ -5,6 +5,8 @@ import com.vaadin.ui.*;
 import control.*;
 import control.View;
 import sh.Globals;
+import util.TipsBox;
+import util.Util;
 
 import java.util.ArrayList;
 
@@ -56,6 +58,10 @@ public class AdminViewsView extends HorizontalLayout {
         //setExpandRatio(ctrlView, 0.8f);
     }
 
+
+    public void tip() {
+        Globals.ui.addWindow(new TipsBox("You can double click subgroups to rename or delete them."));
+    }
 
     private View getView(String name) {
         for(View d : views)
@@ -181,8 +187,8 @@ public class AdminViewsView extends HorizontalLayout {
         });
         ctrlView.addComponent(ctrl);
         ctrlView.addComponent(sl);
-        ctrlView.setComponentAlignment(ctrl, Alignment.MIDDLE_LEFT);
-        ctrlView.setComponentAlignment(sl, Alignment.MIDDLE_RIGHT);
+        ctrlView.setComponentAlignment(ctrl, Alignment.TOP_LEFT);
+        ctrlView.setComponentAlignment(sl, Alignment.TOP_RIGHT);
         /*
         HorizontalLayout un = makeBox("name", "update");
         un.addStyleName("margin-bot30");

@@ -20,7 +20,7 @@ public class UserView extends HorizontalLayout {
     public UserView(User user) {
 
         this.user = user;
-        objectView = new ObjectCtrl();
+        objectView = new ObjectCtrl(null);
         view = Globals.control.getView(Globals.control.getHomeName(), user.getView());
         init();
         this.addComponent(viewCtrl);
@@ -34,5 +34,6 @@ public class UserView extends HorizontalLayout {
 
     }
 
+    public void tip() {}
 
 }

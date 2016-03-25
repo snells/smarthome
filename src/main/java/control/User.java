@@ -56,4 +56,7 @@ public class User {
     public String getView() {
         return data.view;
     }
+    public void noTips() { data.showTips = false; }
+    public boolean tips() { return data.showTips; }
+
 }

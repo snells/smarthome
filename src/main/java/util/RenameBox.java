@@ -14,8 +14,8 @@ public class RenameBox extends Window {
         VerticalLayout vl = new VerticalLayout();
         TextField tf = new TextField();
         tf.addStyleName("margin-top30");
-        vl.setWidth("200px");
-        vl.setHeight("100px");
+        setSizeUndefined();
+        vl.setSizeUndefined();
         vl.addComponent(tf);
         HorizontalLayout hl = new HorizontalLayout();
         hl.setSizeFull();
@@ -46,8 +46,8 @@ public class RenameBox extends Window {
         VerticalLayout vl = new VerticalLayout();
         TextField tf = new TextField();
         tf.addStyleName("margin-top30");
-        vl.setWidth("200px");
-        vl.setHeight("100px");
+        setSizeUndefined();
+        vl.setSizeUndefined();
         vl.addComponent(tf);
         HorizontalLayout hl = new HorizontalLayout();
         hl.setSizeFull();

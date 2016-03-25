@@ -12,7 +12,15 @@ public class Default {
 
     public static ArrayList<ViewData> genDefaultViews() {
         ArrayList<ViewData> ret = new ArrayList<>();
-        ret.add(new ViewData("admin", "koti"));//, genDefaultObjects()));
+        ViewData av = new ViewData("admin", "koti");
+        CategoryData cd = new CategoryData("all");
+        av.categories.add(cd);
+        Category c = new Category(cd);
+        c.addObject(Globals.control.getObject(0));
+        c.addObject(Globals.control.getObject(1));
+        c.addObject(Globals.control.getObject(2));
+        c.addObject(Globals.control.getObject(3));
+        ret.add(av);
         ret.add(new ViewData("default", "koti"));//, genDefaultObjects()));
         return ret;
     }
@@ -22,10 +30,11 @@ public class Default {
         ret.add(genTable());
         ret.add(genDoor());
         ret.add(genLamp());
+        ret.add(genCoffee());
         //ret.add(new SmartData("sensori1", "huone1", Globals.control.getUniqueId()));
         //ret.add(new SmartData("sensori2", "huone1", Globals.control.getUniqueId()));
         //ret.add(new SmartData("sensori3", "huone2", Globals.control.getUniqueId()));
-        ret.add(new SmartData("sensori4", "huone2", Globals.control.getUniqueId()));
+        //ret.add(new SmartData("sensori4", "huone2", Globals.control.getUniqueId()));
         return ret;
     }
 
@@ -72,6 +81,14 @@ public class Default {
         SmartObject o = new SmartObject(new SmartData("Pöytä", "huone1", Globals.control.getUniqueId()));
         o.addAtr(new Attribute("lämpötila", "kylmä"));
         o.addAtr(new Attribute("jalat", "4"));
+        return o.getData();
+    }
+    private static SmartData genCoffee() {
+        SmartObject o = new SmartObject(new SmartData("Kahvinkeitin", "huone2", Globals.control.getUniqueId()));
+        o.addAtr(new Attribute("päällä", "ei", "On", "Off",
+                (atr) -> { atr.state = "On"; },
+                (atr) -> { atr.state = "Off"; }));
+        o.addAtr(new Attribute("Kahvinmäärä", "0 dl"));
         return o.getData();
     }
 }

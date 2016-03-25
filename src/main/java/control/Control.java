@@ -12,24 +12,13 @@ public class Control {
 	private ArrayList<House> houses;
 	private ArrayList<SmartObject> objects;
 	private HomeConf conf;
-	private int lastId = -1;
+	private int lastId = 0;
 
 	public Control() {
 	}
 
 	public void init() {
-		ArrayList<UserData> tmpData = fileHandler.loadLogin();
-		if (tmpData.size() == 0)
-			tmpData = Default.genDefaultUsers();
-		users = User.genUsers(tmpData);
-
-		ArrayList<ViewData> tmpv = fileHandler.loadViews();
-		if (tmpv.size() == 0) {
-			tmpv = Default.genDefaultViews();
-		}
-		views = View.genViews(tmpv);
 		conf = fileHandler.loadConf();
-
 		houses = House.genHouses(conf.houses);
 		objects = new ArrayList<>();
 		for (HouseData d : conf.houses)
@@ -39,6 +28,22 @@ public class Control {
 					lastId = s.id;
 			}
 		lastId++;
+
+		ArrayList<ViewData> tmpv = fileHandler.loadViews();
+		if (tmpv.size() == 0) {
+			tmpv = Default.genDefaultViews();
+		}
+		views = View.genViews(tmpv);
+
+		ArrayList<UserData> tmpData = fileHandler.loadLogin();
+		if (tmpData.size() == 0)
+			tmpData = Default.genDefaultUsers();
+		users = User.genUsers(tmpData);
+
+		System.out.println(getUser("admin").getData().view);
+		View x = getView("koti", "admin");
+		System.out.println(x.getCategories().size());
+
 	}
 
 	public int getUniqueId() {

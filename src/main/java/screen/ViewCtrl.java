@@ -111,8 +111,10 @@ public class ViewCtrl extends NestedList {
             b.addClickListener(e -> {
                 Globals.ui.addWindow(new InputWindow("New group", text -> {
                     view.addCategory(text);
+                    Globals.control.updateView(view.getName(), view.getData());
                 }));
             });
+        if(right)
             groups.add(b);
         addViewFn(getButton());
         for(Category c : view.getCategories()) {

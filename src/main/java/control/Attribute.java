@@ -1,6 +1,6 @@
 package control;
 
-import com.google.gwt.validation.client.impl.AbstractGwtSpecificValidator;
+
 import org.w3c.dom.Attr;
 import util.YesNoBox;
 
@@ -10,11 +10,11 @@ import java.util.HashMap;
 
 public class Attribute implements Serializable {
 
-    public interface AtrFn {
+    public interface AtrFn extends Serializable {
         public void fn();
     }
 
-    public interface AtrWrapper {
+    public interface AtrWrapper extends Serializable {
         public void wrapper(Attribute b);
     }
     public String name;

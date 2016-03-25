@@ -64,17 +64,31 @@ public class AdminUserView extends HorizontalLayout {
         l.addStyleName("margin-rl30");
         hl.addComponent(l);
         TextField tf = new TextField();
+        PasswordField pf = new PasswordField();
         tf.addStyleName("margin-rl30");
-        hl.addComponent(tf);
+        pf.addStyleName("margin-rl30");
+        if(field.equals("password"))
+            hl.addComponent(pf);
+        else
+            hl.addComponent(tf);
         Button b = new Button(name);
         b.addStyleName("margin-rl30");
         b.addClickListener(e -> {
-            handle(field, tf.getValue());
-            tf.setValue("");
+            if(field.equals("password")) {
+                handle(field, pf.getValue());
+                pf.setValue("");
+            }
+            else {
+                handle(field, tf.getValue());
+                tf.setValue("");
+            }
         });
         hl.addComponent(b);
         hl.setComponentAlignment(l, Alignment.MIDDLE_LEFT);
-        hl.setComponentAlignment(tf, Alignment.MIDDLE_CENTER);
+        if(field.equals("password"))
+            hl.setComponentAlignment(pf, Alignment.MIDDLE_CENTER);
+        else
+            hl.setComponentAlignment(tf, Alignment.MIDDLE_CENTER);
         hl.setComponentAlignment(b, Alignment.MIDDLE_RIGHT);
         return hl;
     }
