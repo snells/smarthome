@@ -22,7 +22,6 @@ public class UserScreen extends VerticalLayout implements Screen {
 		b.addClickListener(e -> Globals.control.logout());
 		topBar.addComponent(b);
 		b.setHeight("100%");
-		topBar.addStyleName("border-red");
 		topBar.setComponentAlignment(b, Alignment.MIDDLE_RIGHT);
 	}
 
