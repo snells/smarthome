@@ -122,6 +122,10 @@ public class View {
             Alert.alert("Cannot rename default view");
             return;
         }
+        if(name.equals("admin")) {
+            Alert.alert("Cannot rename admin view");
+            return;
+        }
 
         if(name.length() > 0 && Globals.control.viewNameFree(name)) {
             data.name = name;

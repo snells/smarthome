@@ -8,8 +8,6 @@ import com.vaadin.ui.VerticalLayout;
 import control.*;
 import sh.Globals;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UserView extends HorizontalLayout {
 
@@ -20,14 +18,15 @@ public class UserView extends HorizontalLayout {
     public UserView(User user) {
 
         this.user = user;
+        //this.setSizeFull();
         objectView = new ObjectCtrl(null);
         view = Globals.control.getView(Globals.control.getHomeName(), user.getView());
         init();
-        this.addComponent(viewCtrl);
+        this.addComponents(viewCtrl, objectView);
+        viewCtrl.addStyleName("margin-rl30");
     }
 
     public void init() {
-        objectView.removeAllComponents();
         viewCtrl = new ViewCtrl(view, !(user.getRight() == User.RIGHT.USER),
                 t -> {},
                 id -> { objectView.update(Globals.control.getObject(id)); });

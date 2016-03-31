@@ -31,7 +31,7 @@ public class UserScreen extends VerticalLayout implements Screen {
 		this.setVisible(true);
 		user = Globals.user;
 		view = new UserView(user);
-		view.setSizeFull();
+		//view.setSizeFull();
 		this.addComponents(topBar,view);
 		setExpandRatio(topBar, 0.1f);
 		setExpandRatio(view, 0.9f);

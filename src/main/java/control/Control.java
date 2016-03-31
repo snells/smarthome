@@ -2,6 +2,7 @@ package control;
 
 import screen.Screen;
 import sh.Globals;
+import util.Alert;
 
 import java.util.ArrayList;
 
@@ -185,7 +186,11 @@ public class Control {
 	}
 
 	public void removeView(ViewData v) {
-		removeView(v.name);
+
+		if(v.name.equals("default") || v.name.equals("admin"))
+			Alert.alert("Cannot delete this view");
+		else
+			removeView(v.name);
 	}
 
 	public void removeView(String name) {

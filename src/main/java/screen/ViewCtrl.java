@@ -60,6 +60,8 @@ public class ViewCtrl extends NestedList {
                             () -> {
                                 if(view.getName().equals("default"))
                                     Alert.alert("Cannot delete default view");
+                                else if(view.getName().equals("admin"))
+                                    Alert.alert("Cannot delete admin view");
                                 else {
                                     Globals.control.removeView(view.getData());
                                     Globals.root.update();
